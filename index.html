@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Memos — A Living Archive</title>
+<style>
+  @layer base{
+    html,body{margin:0;padding:0;}
+    body{overscroll-behavior:none;}
+    main>:first-child{margin-top:0!important;}
+    main>:last-child{margin-bottom:0!important;}
+  }
+  ::-webkit-scrollbar{display:none;}
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&family=Inter:wght@100..900&display=swap');
+
+  /* ---- Page routing: only the active .page is shown ---- */
+  .page{ display:none; }
+  .page.is-active{ display:block; animation: pageFadeIn .5s ease both; }
+  @keyframes pageFadeIn{ from{opacity:0; transform:translateY(8px);} to{opacity:1; transform:translateY(0);} }
+
+  @keyframes fadeInUp{ from{opacity:0; transform:translateY(20px);} to{opacity:1; transform:translateY(0);} }
+  @keyframes fadeIn{ from{opacity:0;} to{opacity:1;} }
+
+  /* Mobile nav */
+  #mobile-nav{ display:none; }
+  #mobile-nav.open{ display:flex; }
+</style>
+<script src="https://cdn.tailwindcss.com"></script>
+<script id="tailwind-config">
+tailwind.config={theme:{extend:{colors:{"tertiary":"#5b5c5c","outline":"#74777c","on-primary-fixed-variant":"#394857","on-primary":"#ffffff","tertiary-fixed":"#e2e2e2","primary-container":"#667686","on-error":"#ffffff","outline-variant":"#c4c7cc","on-primary-container":"#fdfcff","on-surface-variant":"#43474c","on-surface":"#1b1c1c","tertiary-fixed-dim":"#c6c6c6","on-tertiary-container":"#fdfcfc","on-secondary-container":"#636451","inverse-surface":"#303030","surface-dim":"#dbd9d9","surface-variant":"#e4e2e2","secondary":"#5e604d","on-error-container":"#93000a","on-secondary":"#ffffff","surface-container-highest":"#e4e2e2","on-tertiary-fixed-variant":"#454747","on-secondary-fixed":"#1b1d0e","on-secondary-fixed-variant":"#474836","on-background":"#1b1c1c","primary":"#4e5e6d","surface-container-low":"#f5f3f3","secondary-fixed":"#e4e4cc","on-primary-fixed":"#0d1d2a","inverse-primary":"#b8c8da","tertiary-container":"#747575","error":"#ba1a1a","error-container":"#ffdad6","background":"#fbf9f8","on-tertiary":"#ffffff","secondary-container":"#e1e1c9","surface-tint":"#50606f","surface-container-lowest":"#ffffff","surface-container":"#efeded","on-tertiary-fixed":"#1a1c1c","primary-fixed-dim":"#b8c8da","surface":"#fbf9f8","primary-fixed":"#d4e4f6","surface-bright":"#fbf9f8","secondary-fixed-dim":"#c8c8b0","inverse-on-surface":"#f2f0f0","surface-container-high":"#eae8e7"},borderRadius:{DEFAULT:"0.125rem",lg:"0.25rem",xl:"0.5rem",full:"0.75rem"},spacing:{"margin-mobile":"20px","gutter":"24px","unit":"8px","container-max":"800px","section-gap":"80px"},fontFamily:{"headline-md":["Playfair Display"],"body-lg":["Source Serif 4"],"display-lg":["Playfair Display"],"display-lg-mobile":["Playfair Display"],"body-md":["Source Serif 4"],"label-sm":["Inter"]},fontSize:{"headline-md":["28px",{lineHeight:"1.3",fontWeight:"400"}],"body-lg":["20px",{lineHeight:"1.6",fontWeight:"400"}],"display-lg":["48px",{lineHeight:"1.1",letterSpacing:"-0.02em",fontWeight:"400"}],"display-lg-mobile":["32px",{lineHeight:"1.2",fontWeight:"400"}],"body-md":["16px",{lineHeight:"1.6",fontWeight:"400"}],"label-sm":["12px",{lineHeight:"1",letterSpacing:"0.08em",fontWeight:"500"}]}}}}
+</script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+</head>
+<body class="bg-background font-body-md text-on-surface antialiased">
+
+<header class="fixed top-0 w-full z-50 bg-background/80 backdrop-blur-md">
+  <div class="h-20 max-w-container-max mx-auto px-margin-mobile lg:px-0 flex items-center justify-between border-b border-outline-variant/30">
+    <a href="#prologue" class="flex items-center gap-3 no-underline" data-nav-home>
+      <img alt="Memos logo" class="w-8 h-8 rounded-full object-cover" src="https://images.unsplash.com/photo-1470509037663-253afd7f0f51?auto=format&fit=crop&w=64&h=64&q=80"/>
+      <span class="font-headline-md text-headline-md tracking-tight text-primary">Memos</span>
+    </a>
+
+    <!-- Desktop nav -->
+    <nav class="hidden md:flex items-center gap-gutter" id="site-nav">
+      <a class="nav-link text-body-md font-body-md text-on-surface-variant hover:text-on-surface transition-all py-1" data-page="prologue" href="#prologue">Prologue</a>
+      <a class="nav-link text-body-md font-body-md text-on-surface-variant hover:text-on-surface transition-all py-1" data-page="our-story" href="#our-story">Our Story</a>
+      <a class="nav-link text-body-md font-body-md text-on-surface-variant hover:text-on-surface transition-all py-1" data-page="life-now" href="#life-now">Life Now</a>
+      <a class="nav-link text-body-md font-body-md text-on-surface-variant hover:text-on-surface transition-all py-1" data-page="journal" href="#journal">Journal</a>
+      <a class="nav-link text-body-md font-body-md italic text-primary hover:text-primary-container transition-all py-1" data-page="dear-you" href="#dear-you">Dear You...</a>
+    </nav>
+
+    <!-- Mobile menu button -->
+    <button id="mobile-nav-toggle" class="md:hidden flex items-center justify-center w-10 h-10 text-primary" aria-label="Open menu">
+      <span class="material-symbols-outlined">menu</span>
+    </button>
+  </div>
+
+  <!-- Mobile nav panel -->
+  <nav id="mobile-nav" class="md:hidden flex-col bg-background border-b border-outline-variant/30 px-margin-mobile py-gutter gap-4">
+    <a class="nav-link text-body-md font-body-md text-on-surface-variant py-1" data-page="prologue" href="#prologue">Prologue</a>
+    <a class="nav-link text-body-md font-body-md text-on-surface-variant py-1" data-page="our-story" href="#our-story">Our Story</a>
+    <a class="nav-link text-body-md font-body-md text-on-surface-variant py-1" data-page="life-now" href="#life-now">Life Now</a>
+    <a class="nav-link text-body-md font-body-md text-on-surface-variant py-1" data-page="journal" href="#journal">Journal</a>
+    <a class="nav-link text-body-md font-body-md italic text-primary py-1" data-page="dear-you" href="#dear-you">Dear You...</a>
+  </nav>
+</header>
+
+<main class="pt-20 min-h-screen">
+
+<!-- =========================================================
+     PAGE 1: PROLOGUE
+     ========================================================= -->
+<section id="page-prologue" class="page is-active" data-page="prologue">
+<div class="flex flex-col w-full">
+  <!-- Hero Section: The Threshold -->
+  <section class="relative w-full h-[85vh] flex items-center justify-center overflow-hidden">
+    <div class="absolute inset-0 z-0">
+      <div class="w-full h-full bg-cover bg-center transition-transform duration-[3000ms] hover:scale-105" style="background-image: url('https://images.unsplash.com/photo-1648737962619-16e5cd465d2b?auto=format&fit=crop&w=1600&q=80')">
+        <div class="absolute inset-0 bg-gradient-to-b from-background/20 via-transparent to-background/60"></div>
+      </div>
+    </div>
+    <div class="relative z-10 max-w-container-max mx-auto px-margin-mobile lg:px-0 text-center">
+      <div class="inline-block mb-unit overflow-hidden">
+        <span class="block text-label-sm font-label-sm text-primary tracking-[0.3em] uppercase opacity-0" style="animation: fadeInUp 1s ease forwards;">Chapter One</span>
+      </div>
+      <h1 class="font-display-lg text-display-lg-mobile lg:text-display-lg text-on-surface mb-gutter opacity-0" style="animation: fadeInUp 1s ease 0.3s forwards;">
+        Prologue: The Threshold
+      </h1>
+      <div class="w-12 h-[1px] bg-outline-variant mx-auto mb-gutter opacity-0" style="animation: fadeIn 1.5s ease 0.8s forwards;"></div>
+      <p class="font-body-lg text-body-lg text-on-surface-variant italic max-w-lg mx-auto leading-relaxed opacity-0" style="animation: fadeInUp 1s ease 0.6s forwards;">
+        "Memory is a quiet room, lit by the evening sun."
+      </p>
+    </div>
+    <div class="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-0" style="animation: fadeIn 1s ease 1.5s forwards;">
+      <span class="text-label-sm font-label-sm text-outline-variant uppercase tracking-widest">Begin</span>
+      <div class="w-[1px] h-12 bg-gradient-to-b from-outline-variant to-transparent"></div>
+    </div>
+  </section>
+
+  <!-- Narrative Introduction Section -->
+  <section class="w-full py-section-gap bg-surface">
+    <div class="max-w-container-max mx-auto px-margin-mobile lg:px-0">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter items-start">
+        <div class="hidden lg:block lg:col-span-1 [writing-mode:vertical-rl] pt-2">
+          <span class="text-label-sm font-label-sm text-outline uppercase tracking-widest opacity-40">Entry No. 01</span>
+        </div>
+        <div class="lg:col-span-8 lg:col-start-3">
+          <div class="flex flex-col gap-12">
+            <div class="space-y-6">
+              <p class="font-body-lg text-body-lg text-on-surface leading-loose">
+                We often think of the past as a library of dusty volumes, stacked high and out of reach. But here, in this space, it feels more like the slant of light hitting a specific chair at 4:00 PM. It is persistent, warm, and deceptively still.
+              </p>
+              <p class="font-body-lg text-body-lg text-on-surface-variant leading-loose">
+                This archive is not a collection of facts. It is a collection of residues—the scent of rain on hot pavement, the specific weight of a ceramic cup, the way a conversation ends before the silence begins.
+              </p>
+            </div>
+            <div class="py-unit">
+              <svg class="text-outline-variant/30" fill="none" height="20" viewBox="0 0 800 20" width="100%">
+                <circle cx="400" cy="10" fill="currentColor" r="2"></circle>
+                <line stroke="currentColor" stroke-width="0.5" x1="0" x2="380" y1="10" y2="10"></line>
+                <line stroke="currentColor" stroke-width="0.5" x1="420" x2="800" y1="10" y2="10"></line>
+              </svg>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-gutter italic text-on-surface-variant/80">
+              <div class="p-gutter bg-surface-container-low rounded-lg shadow-sm">
+                <span class="material-symbols-outlined text-primary mb-2">auto_stories</span>
+                <p class="font-body-md text-body-md">The stories we tell ourselves are the only maps we have through the fog of time.</p>
+              </div>
+              <div class="p-gutter border border-outline-variant/30 rounded-lg flex flex-col justify-end">
+                <span class="text-label-sm font-label-sm uppercase tracking-tighter mb-1">Perspective</span>
+                <p class="font-body-md text-body-md">Every threshold crossed is a memory gained, and a moment lost to the current.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Visual Anchor Section -->
+  <section class="w-full bg-surface-container-lowest">
+    <div class="max-w-container-max mx-auto px-margin-mobile lg:px-0 py-section-gap">
+      <div class="relative group">
+        <div class="aspect-[16/9] w-full overflow-hidden shadow-xl bg-surface-dim">
+          <div class="w-full h-full bg-cover bg-center saturate-[0.8] sepia-[0.1]" style="background-image: url('https://images.unsplash.com/photo-1749733600739-23f17b79f788?auto=format&fit=crop&w=1600&q=80')"></div>
+        </div>
+        <div class="absolute -bottom-12 -right-4 lg:-right-12 bg-background p-8 shadow-xl max-w-xs border border-outline-variant/10">
+          <span class="text-label-sm font-label-sm text-primary uppercase block mb-2">Location Notes</span>
+          <h3 class="font-headline-md text-headline-md text-on-surface mb-4">The Golden Hour</h3>
+          <p class="font-body-md text-body-md text-on-surface-variant mb-6">Captured at the intersection of Rue de Varenne. The light held for exactly seven minutes.</p>
+          <button class="group flex items-center gap-3 text-label-sm font-label-sm uppercase tracking-widest text-primary hover:text-on-surface transition-colors" data-page-link="our-story">
+            Explore Our Story
+            <span class="material-symbols-outlined text-[18px] group-hover:translate-x-1 transition-transform">arrow_forward</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Transition Section -->
+  <section class="w-full py-section-gap">
+    <div class="max-w-container-max mx-auto px-margin-mobile text-center">
+      <div class="inline-flex items-center gap-4 mb-gutter">
+        <div class="w-8 h-[1px] bg-outline-variant"></div>
+        <span class="text-label-sm font-label-sm text-outline uppercase tracking-[0.2em]">Next Chapter</span>
+        <div class="w-8 h-[1px] bg-outline-variant"></div>
+      </div>
+      <a class="page-link block font-display-lg text-display-lg-mobile lg:text-display-lg text-on-surface-variant hover:text-primary transition-colors duration-500" data-page="our-story" href="#our-story">
+        Our Story
+      </a>
+    </div>
+  </section>
+</div>
+</section>
+
+<!-- =========================================================
+     PAGE 2: OUR STORY
+     ========================================================= -->
+<section id="page-our-story" class="page" data-page="our-story">
+<div class="flex flex-col w-full">
+  <section class="w-full py-section-gap bg-surface">
+    <div class="max-w-container-max mx-auto px-margin-mobile lg:px-0 text-center">
+      <span class="font-label-sm text-label-sm text-outline uppercase tracking-[0.3em]">Chapter Two</span>
+      <h1 class="font-display-lg text-display-lg-mobile lg:text-display-lg text-on-surface mt-gutter mb-gutter">Our Story</h1>
+      <p class="font-body-lg text-body-lg text-on-surface-variant italic max-w-lg mx-auto leading-relaxed">
+        Every archive needs an origin. This is where ours begins — replace this with the real beginning whenever you're ready.
+      </p>
+    </div>
+  </section>
+
+  <section class="max-w-container-max mx-auto px-margin-mobile lg:px-0 py-section-gap">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-section-gap items-center">
+      <div class="relative order-2 lg:order-1">
+        <div class="aspect-[4/5] w-full overflow-hidden rounded-xl shadow-xl">
+          <img alt="Warm cafe corner where a story might begin" class="w-full h-full object-cover" src="https://images.unsplash.com/photo-1754338785183-70cd3cce3d21?auto=format&fit=crop&w=1000&q=80"/>
+        </div>
+      </div>
+      <div class="order-1 lg:order-2 space-y-6">
+        <span class="font-label-sm text-label-sm text-outline uppercase tracking-widest">Placeholder Copy</span>
+        <p class="font-body-lg text-body-lg text-on-surface leading-relaxed">
+          This is where the first meeting, the first conversation, or the first spark gets written down. For now, this paragraph is a placeholder — swap it out for the real memory whenever you have it ready.
+        </p>
+        <p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">
+          Keep it in your own words. The rest of the page is built to hold a short, chronological set of milestones underneath — perfect for the handful of moments that mark how the story unfolded.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Milestones: a real sequence, so numbering earns its place here -->
+  <section class="w-full bg-secondary-container/20 py-section-gap">
+    <div class="max-w-container-max mx-auto px-margin-mobile lg:px-0">
+      <h2 class="font-headline-md text-headline-md text-on-secondary-container text-center mb-section-gap">Milestones</h2>
+      <div class="flex flex-col gap-gutter">
+
+        <div class="flex gap-gutter items-start">
+          <span class="font-display-lg text-[32px] text-primary/40 w-16 shrink-0">01</span>
+          <div class="flex-1 pb-gutter border-b border-outline-variant/20">
+            <time class="font-label-sm text-label-sm text-outline uppercase tracking-widest">Month, Year</time>
+            <h3 class="font-headline-md text-headline-md text-on-surface mt-1 mb-2">The First Meeting</h3>
+            <p class="font-body-md text-body-md text-on-surface-variant">Placeholder — describe how it started.</p>
+          </div>
+        </div>
+
+        <div class="flex gap-gutter items-start">
+          <span class="font-display-lg text-[32px] text-primary/40 w-16 shrink-0">02</span>
+          <div class="flex-1 pb-gutter border-b border-outline-variant/20">
+            <time class="font-label-sm text-label-sm text-outline uppercase tracking-widest">Month, Year</time>
+            <h3 class="font-headline-md text-headline-md text-on-surface mt-1 mb-2">A Turning Point</h3>
+            <p class="font-body-md text-body-md text-on-surface-variant">Placeholder — describe the moment things changed.</p>
+          </div>
+        </div>
+
+        <div class="flex gap-gutter items-start">
+          <span class="font-display-lg text-[32px] text-primary/40 w-16 shrink-0">03</span>
+          <div class="flex-1">
+            <time class="font-label-sm text-label-sm text-outline uppercase tracking-widest">Month, Year</time>
+            <h3 class="font-headline-md text-headline-md text-on-surface mt-1 mb-2">Where We Are Now</h3>
+            <p class="font-body-md text-body-md text-on-surface-variant">Placeholder — describe the present chapter.</p>
+          </div>
+        </div>
+
+      </div>
+      <p class="font-body-md text-body-md text-outline text-center mt-section-gap italic">
+        Add as many milestones as you like — just copy one of the blocks above in the HTML and update the number, date, title, and text.
+      </p>
+    </div>
+  </section>
+
+  <section class="w-full py-section-gap">
+    <div class="max-w-container-max mx-auto px-margin-mobile text-center">
+      <div class="inline-flex items-center gap-4 mb-gutter">
+        <div class="w-8 h-[1px] bg-outline-variant"></div>
+        <span class="text-label-sm font-label-sm text-outline uppercase tracking-[0.2em]">Next Chapter</span>
+        <div class="w-8 h-[1px] bg-outline-variant"></div>
+      </div>
+      <a class="page-link block font-display-lg text-display-lg-mobile lg:text-display-lg text-on-surface-variant hover:text-primary transition-colors duration-500" data-page="life-now" href="#life-now">
+        Life Now
+      </a>
+    </div>
+  </section>
+</div>
+</section>
+
+<!-- =========================================================
+     PAGE 3: LIFE NOW
+     ========================================================= -->
+<section id="page-life-now" class="page" data-page="life-now">
+<div class="flex flex-col w-full">
+  <section class="relative w-full overflow-hidden bg-surface">
+    <div class="max-w-container-max mx-auto px-margin-mobile lg:px-0 py-section-gap flex flex-col items-center">
+      <div class="w-full flex justify-between items-end mb-unit">
+        <span class="font-label-sm text-label-sm text-primary uppercase tracking-[0.2em] [writing-mode:vertical-rl] rotate-180 h-32 flex items-center justify-end border-r border-outline-variant/30 pr-4">Present Tense</span>
+        <div class="flex-1 pl-gutter">
+          <h1 class="font-display-lg text-display-lg text-on-surface mb-gutter max-w-xl leading-none">
+            Life Now: <br/>
+            <span class="italic text-primary-container">The Weight of Breath</span>
+          </h1>
+        </div>
+      </div>
+      <div class="relative w-full mt-gutter group">
+        <div class="aspect-[1.79] w-full overflow-hidden rounded-xl shadow-xl transition-transform duration-700 hover:scale-[1.01]">
+          <img alt="Sun-drenched empty cafe corner" class="w-full h-full object-cover" src="https://images.unsplash.com/photo-1754338785183-70cd3cce3d21?auto=format&fit=crop&w=1600&q=80"/>
+          <div class="absolute inset-0 bg-gradient-to-t from-background/40 to-transparent pointer-events-none"></div>
+        </div>
+        <div class="absolute -bottom-8 -right-8 bg-surface-container p-gutter max-w-xs shadow-lg hidden lg:block">
+          <p class="font-body-md text-on-surface-variant italic">
+            "The golden dust motes dance in a light that doesn't ask for anything but our witness."
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="max-w-container-max mx-auto px-margin-mobile lg:px-0 py-section-gap">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter items-start">
+      <div class="lg:col-span-5 flex flex-col gap-section-gap">
+        <div class="flex flex-col">
+          <span class="font-label-sm text-label-sm text-outline uppercase mb-unit">01. Sensory Anchor</span>
+          <p class="font-body-lg text-body-lg text-on-surface leading-relaxed">
+            In the stillness of this corner, time isn't measured by the clock, but by the slow evaporation of steam from a ceramic rim. The air carries the faint, grounding scent of roasted beans and old paper.
+          </p>
+        </div>
+        <div class="flex flex-col">
+          <span class="font-label-sm text-label-sm text-outline uppercase mb-unit">02. Tactile Reality</span>
+          <p class="font-body-md text-body-md text-on-surface-variant">
+            Run your fingers across the tabletop. Feel the grain of the oak—the microscopic ridges where the wood grew faster in the rain of a decade forgotten. This is the weight of the present: hard, cool, and undeniably here.
+          </p>
+        </div>
+      </div>
+      <div class="lg:col-span-7 flex flex-col gap-gutter">
+        <div class="bg-surface-container-low p-12 rounded-xl relative overflow-hidden">
+          <div class="absolute top-0 right-0 opacity-10">
+            <svg fill="none" height="200" viewBox="0 0 100 100" width="200" xmlns="http://www.w3.org/2000/svg">
+              <circle class="text-primary" cx="50" cy="50" r="40" stroke="currentColor" stroke-width="0.5"></circle>
+              <circle class="text-primary opacity-50" cx="50" cy="50" r="30" stroke="currentColor" stroke-width="0.5"></circle>
+            </svg>
+          </div>
+          <div class="relative z-10 space-y-gutter">
+            <div class="flex items-center gap-4">
+              <span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">air</span>
+              <span class="font-label-sm text-label-sm text-primary tracking-widest uppercase">The Breath Metric</span>
+            </div>
+            <p class="font-headline-md text-headline-md text-on-surface leading-tight">
+              There is a quiet dignity in an empty chair. It suggests a space held open—not for someone else, but for the version of you that knows how to simply exist.
+            </p>
+            <div class="pt-gutter border-t border-outline-variant/30 flex justify-between items-center">
+              <span class="font-body-md text-on-surface-variant italic">Current Pulse</span>
+              <div class="flex gap-2">
+                <div class="w-2 h-2 rounded-full bg-primary animate-pulse"></div>
+                <div class="w-2 h-2 rounded-full bg-primary/40"></div>
+                <div class="w-2 h-2 rounded-full bg-primary/20"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="grid grid-cols-2 gap-gutter">
+          <div class="aspect-square bg-surface-container-highest rounded-lg flex flex-col items-center justify-center p-gutter text-center group hover:bg-primary transition-colors duration-500">
+            <span class="material-symbols-outlined text-outline group-hover:text-on-primary mb-2">texture</span>
+            <span class="font-label-sm text-label-sm text-on-surface-variant group-hover:text-on-primary uppercase">Grain</span>
+          </div>
+          <div class="aspect-square bg-surface-container-highest rounded-lg flex flex-col items-center justify-center p-gutter text-center group hover:bg-primary transition-colors duration-500">
+            <span class="material-symbols-outlined text-outline group-hover:text-on-primary mb-2">cloud</span>
+            <span class="font-label-sm text-label-sm text-on-surface-variant group-hover:text-on-primary uppercase">Mist</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="w-full bg-secondary-container/30 py-section-gap mt-section-gap">
+    <div class="max-w-container-max mx-auto px-margin-mobile lg:px-0 flex flex-col items-center text-center">
+      <span class="font-label-sm text-label-sm text-secondary uppercase tracking-[0.3em] mb-gutter">A Momentary Practice</span>
+      <h2 class="font-headline-md text-headline-md text-on-secondary-container mb-section-gap max-w-lg">
+        Close your eyes and name three textures within your reach.
+      </h2>
+      <div class="w-full max-w-md space-y-gutter">
+        <div class="relative">
+          <input class="w-full bg-transparent border-b border-outline-variant py-4 font-body-md text-on-surface outline-none focus:border-primary transition-colors placeholder:text-outline/50" placeholder="The first touch..." type="text"/>
+        </div>
+        <div class="relative">
+          <input class="w-full bg-transparent border-b border-outline-variant py-4 font-body-md text-on-surface outline-none focus:border-primary transition-colors placeholder:text-outline/50" placeholder="The second weight..." type="text"/>
+        </div>
+        <div class="relative">
+          <input class="w-full bg-transparent border-b border-outline-variant py-4 font-body-md text-on-surface outline-none focus:border-primary transition-colors placeholder:text-outline/50" placeholder="The final breath..." type="text"/>
+        </div>
+        <button class="mt-gutter px-12 py-4 border border-secondary text-secondary font-label-sm uppercase tracking-widest hover:bg-secondary hover:text-on-secondary transition-all duration-300" type="button" id="archive-feeling-btn">
+          Archive This Feeling
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <section class="max-w-container-max mx-auto px-margin-mobile lg:px-0 py-section-gap">
+    <div class="flex flex-col lg:flex-row items-center gap-section-gap">
+      <div class="flex-1 order-2 lg:order-1">
+        <p class="font-body-lg text-body-lg text-on-surface-variant leading-relaxed">
+          The weight of breath is surprisingly light when you stop trying to hold it. Like the light in that cafe corner, it simply lands. It fills the space it's given. It warms what it touches, then it moves on, leaving only the memory of warmth.
+        </p>
+        <div class="mt-gutter flex items-center gap-4">
+          <div class="h-px flex-1 bg-outline-variant/30"></div>
+          <span class="font-label-sm text-label-sm text-outline italic">09:42 AM — The Quiet Hour</span>
+        </div>
+      </div>
+      <div class="w-full lg:w-1/3 order-1 lg:order-2">
+        <div class="aspect-[3/4] bg-surface-container rounded-full overflow-hidden shadow-inner flex items-center justify-center p-12 relative">
+          <div class="w-full h-full border border-primary/20 rounded-full flex items-center justify-center" style="animation: spin 20s linear infinite;">
+            <span class="font-label-sm text-label-sm text-primary uppercase tracking-tighter opacity-40 [writing-mode:vertical-rl]">The Present Moment is Enough • </span>
+          </div>
+          <div class="absolute flex flex-col items-center">
+            <span class="material-symbols-outlined text-primary text-4xl opacity-80">spa</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+</section>
+
+<!-- =========================================================
+     PAGE 4: LIVING JOURNAL
+     ========================================================= -->
+<section id="page-journal" class="page" data-page="journal">
+<div class="flex flex-col w-full">
+  <section class="max-w-container-max mx-auto px-margin-mobile lg:px-0 w-full py-section-gap">
+    <div class="flex flex-col md:flex-row md:items-end justify-between gap-gutter">
+      <div class="space-y-unit">
+        <span class="font-label-sm text-label-sm uppercase tracking-widest text-outline">Digital Archive</span>
+        <h1 class="font-display-lg text-display-lg text-on-surface">The Living Journal</h1>
+      </div>
+      <div class="flex items-center gap-4 text-primary">
+        <span class="material-symbols-outlined text-[20px]">filter_list</span>
+        <span class="font-label-sm text-label-sm uppercase tracking-widest">Sorted by Date</span>
+      </div>
+    </div>
+    <div class="h-px w-full bg-outline-variant/30 mt-gutter"></div>
+  </section>
+
+  <section class="max-w-container-max mx-auto px-margin-mobile lg:px-0 w-full pb-section-gap">
+    <div class="grid grid-cols-1 md:grid-cols-12 gap-section-gap">
+
+      <!-- Entry List: populated automatically from the journalEntries array in the <script> below -->
+      <div class="md:col-span-7 flex flex-col gap-16" id="journal-entry-list">
+        <!-- entries injected here by JS -->
+      </div>
+
+      <!-- Sidebar / Visual Anchor -->
+      <aside class="md:col-span-5 relative">
+        <div class="sticky top-24 space-y-gutter">
+          <div class="relative group overflow-hidden rounded-xl shadow-xl bg-surface-container-high">
+            <img alt="Cozy cafe corner" class="w-full aspect-square object-cover opacity-90 group-hover:scale-105 transition-transform duration-1000" src="https://images.unsplash.com/photo-1648737962619-16e5cd465d2b?auto=format&fit=crop&w=1000&q=80"/>
+            <div class="absolute inset-0 bg-gradient-to-t from-on-surface/40 via-transparent to-transparent pointer-events-none"></div>
+            <div class="absolute bottom-6 left-6 right-6">
+              <span class="font-label-sm text-label-sm text-white/90 uppercase tracking-widest">Atmosphere</span>
+              <p class="font-headline-md text-white mt-1">The Sanctuary</p>
+            </div>
+          </div>
+          <div class="p-gutter bg-surface-container-low rounded-xl space-y-4">
+            <h3 class="font-headline-md text-headline-md text-primary">Journal Stats</h3>
+            <div class="flex justify-between items-end">
+              <span class="font-label-sm text-outline uppercase">Active Streak</span>
+              <span class="font-display-lg text-[32px] text-on-surface" id="journal-streak">— <span class="text-body-md font-body-md text-outline">Days</span></span>
+            </div>
+            <div class="w-full bg-outline-variant/20 h-1.5 rounded-full overflow-hidden">
+              <div class="bg-primary h-full transition-all duration-1000 ease-out" id="progress-bar" style="width: 0%"></div>
+            </div>
+            <p class="font-body-md text-body-md text-on-surface-variant">Your thoughts are becoming a garden. Keep tending to them.</p>
+          </div>
+          <button class="w-full py-4 px-gutter bg-primary text-on-primary font-label-sm text-label-sm uppercase tracking-widest rounded-xl hover:bg-primary-container transition-all flex items-center justify-center gap-2" id="new-entry-btn" type="button">
+            <span class="material-symbols-outlined text-[20px]">add</span>
+            New Entry
+          </button>
+        </div>
+      </aside>
+    </div>
+  </section>
+</div>
+</section>
+
+<!-- =========================================================
+     PAGE 5: DEAR YOU...
+     ========================================================= -->
+<section id="page-dear-you" class="page" data-page="dear-you">
+<div class="flex flex-col w-full">
+  <section class="relative w-full flex flex-col lg:flex-row items-center gap-section-gap px-margin-mobile lg:px-gutter py-section-gap overflow-hidden">
+    <div class="absolute top-10 left-10 [writing-mode:vertical-rl] opacity-20 pointer-events-none">
+      <span class="font-label-sm text-label-sm uppercase tracking-[0.3em] text-on-surface">Final Memoir</span>
+    </div>
+    <div class="relative w-full lg:w-1/2 flex justify-center">
+      <div class="relative group">
+        <div class="absolute -inset-4 bg-surface-container-high/50 blur-xl rounded-full scale-95 group-hover:scale-105 transition-transform duration-1000"></div>
+        <div class="relative aspect-square w-full max-w-[500px] overflow-hidden shadow-2xl transition-all duration-700 hover:shadow-primary/10">
+          <img alt="Sunflowers in a glass vase" class="w-full h-full object-cover scale-100 hover:scale-105 transition-transform duration-[3000ms] ease-out" src="https://images.unsplash.com/photo-1757681843238-dd02aee97906?auto=format&fit=crop&w=1000&q=80"/>
+          <div class="absolute inset-0 bg-gradient-to-t from-background/40 to-transparent pointer-events-none"></div>
+        </div>
+        <div class="absolute -bottom-6 -right-6 bg-surface-container-lowest p-6 shadow-xl hidden lg:block">
+          <p class="font-label-sm text-label-sm text-primary uppercase tracking-widest">Moment No. 114</p>
+        </div>
+      </div>
+    </div>
+    <div class="w-full lg:w-1/2 flex flex-col max-w-[480px]">
+      <div class="mb-gutter">
+        <span class="font-label-sm text-label-sm text-outline uppercase tracking-[0.2em]">The Final Word</span>
+      </div>
+      <h1 class="font-display-lg text-display-lg-mobile lg:text-display-lg text-primary mb-12 italic leading-tight">
+        What I Want <br/>
+        To Say To You
+      </h1>
+      <div class="space-y-8">
+        <p class="font-body-lg text-body-lg text-on-surface-variant leading-relaxed">
+          There is a specific kind of silence that follows your departure. It is not empty; it is heavy, filled with the echoes of things left unsaid and the phantom weight of your presence.
+        </p>
+        <p class="font-body-lg text-body-lg text-on-surface-variant leading-relaxed">
+          I keep finding you in the small things. The way the light hits the floor at four in the afternoon. The specific sound of a page turning. A single leaf resting where it shouldn't be.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="w-full max-w-container-max mx-auto px-margin-mobile lg:px-0 py-section-gap flex flex-col items-center text-center">
+    <div class="w-px h-32 bg-gradient-to-b from-outline-variant/50 to-transparent mb-section-gap"></div>
+    <div class="relative w-full max-w-prose">
+      <span class="absolute -top-12 -left-8 font-display-lg text-[80px] text-primary/5 select-none italic">Dear...</span>
+      <div class="space-y-12">
+        <p class="font-body-lg text-body-lg text-on-surface italic leading-loose">
+          If I could reach through the distance of then and now, I would tell you that I finally understand. Every quiet moment we shared was a library of memories I am still learning to read.
+        </p>
+        <p class="font-body-lg text-body-lg text-on-surface italic leading-loose">
+          I want you to know that the world is still beautiful, though it is a different kind of beauty now—one tinted with the longing of your absence. I carry your memory not as a burden, but as a lantern.
+        </p>
+        <div class="pt-12">
+          <p class="font-headline-md text-headline-md text-primary mb-2 italic">With everything I am,</p>
+          <p class="font-label-sm text-label-sm text-outline uppercase tracking-widest mt-4">Me</p>
+        </div>
+      </div>
+    </div>
+    <div class="mt-section-gap relative flex items-center justify-center">
+      <div class="absolute w-12 h-12 rounded-full bg-primary/10 animate-ping"></div>
+      <div class="relative w-3 h-3 rounded-full bg-primary"></div>
+    </div>
+  </section>
+
+  <section class="w-full bg-surface-container-low/30 py-section-gap mt-section-gap">
+    <div class="max-w-container-max mx-auto px-margin-mobile flex flex-col lg:flex-row gap-gutter">
+      <div class="flex-1 bg-surface-container-lowest p-12 shadow-sm">
+        <span class="font-label-sm text-label-sm text-outline uppercase block mb-6">Observation</span>
+        <p class="font-body-md text-body-md text-on-surface-variant italic">
+          "The heart is a vessel that only grows larger the more it is emptied."
+        </p>
+      </div>
+      <div class="flex-1 flex flex-col justify-end lg:pb-12">
+        <div class="border-l border-outline-variant/30 pl-8">
+          <p class="font-label-sm text-label-sm text-outline uppercase tracking-widest mb-2">Location</p>
+          <p class="font-body-md text-body-md text-on-surface">The quietest corner of the room.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+</section>
+
+</main>
+
+<footer class="w-full py-section-gap bg-surface-container-lowest mt-section-gap border-t border-outline-variant/20">
+  <div class="max-w-container-max mx-auto px-margin-mobile text-center">
+    <p class="font-headline-md text-headline-md text-on-surface-variant opacity-60 mb-unit">Thank you for remembering.</p>
+    <div class="flex justify-center gap-gutter mt-unit">
+      <span class="text-label-sm font-label-sm text-outline uppercase tracking-widest">Est. 2024</span>
+    </div>
+  </div>
+</footer>
+
+<style>
+  @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+</style>
+
+<script>
+/* =====================================================================
+   JOURNAL ENTRIES
+   ---------------------------------------------------------------------
+   To add a new memory, copy one of the objects below (between the { }),
+   paste it as a new item in the array, and fill in your own text.
+   Newest entries should go at the TOP of the array — they're shown in
+   the order you list them here.
+
+   Fields:
+     date      - shown as-is, e.g. "October 24, 2024"
+     mood      - a short italic tag, e.g. "Rainy Morning"
+     dot       - "filled" for the most recent entry's timeline dot,
+                 "empty" for older ones (purely visual, optional)
+     body      - the main paragraph of the entry
+     quote     - (optional) a short pulled-quote line under the body,
+                 leave as "" or delete the field if you don't want one
+   ===================================================================== */
+const journalEntries = [
+  {
+    date: "October 24, 2024",
+    mood: "Rainy Morning",
+    dot: "filled",
+    body: "The sound of the city is different when the pavement is wet. It's a rhythmic, shushing sound that makes the world feel smaller, more contained. I found myself staring at the steam rising from my cup for longer than necessary today.",
+    quote: "Sometimes the quietest moments hold the most weight."
+  },
+  {
+    date: "October 21, 2024",
+    mood: "Golden Hour",
+    dot: "empty",
+    body: "The light today was like honey—thick and amber, coating everything in a temporary glow. It reminded me that transition is not just a process, but an art form. We are all becoming something else, every second.",
+    quote: ""
+  },
+  {
+    date: "October 18, 2024",
+    mood: "Unspoken",
+    dot: "empty",
+    body: "I realized today that I haven't written in three days. The absence of words is also a form of record. Some days are for living, not for documenting.",
+    quote: ""
+  }
+];
+
+function renderJournal(){
+  const list = document.getElementById('journal-entry-list');
+  if(!list) return;
+  list.innerHTML = journalEntries.map(entry => `
+    <article class="group relative">
+      <div class="absolute -left-12 top-0 h-full w-px bg-outline-variant/20 hidden lg:block">
+        <div class="absolute top-2 -left-1 w-2 h-2 rounded-full ${entry.dot === 'filled' ? 'bg-primary' : 'bg-outline-variant'} ring-4 ring-background"></div>
+      </div>
+      <div class="space-y-4">
+        <header class="flex items-center gap-4">
+          <time class="font-label-sm text-label-sm text-outline uppercase tracking-tighter">${entry.date}</time>
+          <span class="w-1 h-1 rounded-full bg-outline-variant"></span>
+          <span class="font-label-sm text-label-sm text-primary italic">${entry.mood}</span>
+        </header>
+        <div class="space-y-4">
+          <p class="font-body-lg text-body-lg text-on-surface leading-relaxed">${entry.body}</p>
+          ${entry.quote ? `<p class="font-body-md text-body-md text-on-surface-variant italic border-l-2 border-primary/20 pl-4 py-1">${entry.quote}</p>` : ''}
+        </div>
+      </div>
+    </article>
+  `).join('');
+
+  // Update the "Active Streak" stat and progress bar from the entry count
+  const streakEl = document.getElementById('journal-streak');
+  const bar = document.getElementById('progress-bar');
+  if(streakEl){
+    streakEl.innerHTML = journalEntries.length + ' <span class="text-body-md font-body-md text-outline">Entries</span>';
+  }
+  if(bar){
+    setTimeout(() => { bar.style.width = Math.min(100, journalEntries.length * 8) + '%'; }, 300);
+  }
+}
+
+/* =====================================================================
+   PAGE ROUTING (hash-based, works on GitHub Pages with no server config)
+   ===================================================================== */
+const PAGES = ['prologue', 'our-story', 'life-now', 'journal', 'dear-you'];
+
+function showPage(pageName, updateHash = true){
+  if(!PAGES.includes(pageName)) pageName = 'prologue';
+
+  document.querySelectorAll('.page').forEach(el => {
+    el.classList.toggle('is-active', el.dataset.page === pageName);
+  });
+
+  document.querySelectorAll('.nav-link').forEach(link => {
+    const isActive = link.dataset.page === pageName;
+    link.classList.toggle('text-primary', isActive);
+    link.classList.toggle('font-medium', isActive);
+    link.classList.toggle('border-b-2', isActive);
+    link.classList.toggle('border-primary', isActive);
+    link.classList.toggle('text-on-surface-variant', !isActive && !link.classList.contains('italic'));
+    link.setAttribute('aria-current', isActive ? 'page' : 'false');
+  });
+
+  if(updateHash) history.pushState(null, '', '#' + pageName);
+  window.scrollTo({ top: 0, behavior: 'instant' in window ? 'instant' : 'auto' });
+
+  // close mobile nav after navigating
+  const mobileNav = document.getElementById('mobile-nav');
+  if(mobileNav) mobileNav.classList.remove('open');
+}
+
+function getPageFromHash(){
+  const hash = location.hash.replace('#', '');
+  return PAGES.includes(hash) ? hash : 'prologue';
+}
+
+document.addEventListener('click', (e) => {
+  const link = e.target.closest('[data-page], [data-page-link]');
+  if(!link) return;
+  const target = link.dataset.page || link.dataset.pageLink;
+  if(target){
+    e.preventDefault();
+    showPage(target);
+  }
+});
+
+window.addEventListener('popstate', () => showPage(getPageFromHash(), false));
+window.addEventListener('hashchange', () => showPage(getPageFromHash(), false));
+
+document.getElementById('mobile-nav-toggle').addEventListener('click', () => {
+  document.getElementById('mobile-nav').classList.toggle('open');
+});
+
+document.getElementById('new-entry-btn')?.addEventListener('click', () => {
+  alert('To add a new entry: open index.html, find the "JOURNAL ENTRIES" section near the bottom of the file, and add a new entry to the journalEntries list at the top of that array.');
+});
+
+document.getElementById('archive-feeling-btn')?.addEventListener('click', () => {
+  alert('This is a placeholder button — it doesn\'t save anything yet. Hook it up to a form service (like Formspree) if you\'d like these submissions to go somewhere.');
+});
+
+// Subtle interactivity for underlined inputs
+document.querySelectorAll('input').forEach(input => {
+  input.addEventListener('focus', () => {
+    input.parentElement.style.transform = 'translateX(8px)';
+    input.parentElement.style.transition = 'transform 0.3s ease';
+  });
+  input.addEventListener('blur', () => {
+    input.parentElement.style.transform = 'translateX(0px)';
+  });
+});
+
+// Init
+renderJournal();
+showPage(getPageFromHash(), false);
+</script>
+</body>
+</html>
