@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Memos — A Living Archive</title>
+<title>念 — 一个记忆的角落</title>
 <style>
   @layer base{
     html,body{margin:0;padding:0;}
@@ -12,9 +12,9 @@
     main>:last-child{margin-bottom:0!important;}
   }
   ::-webkit-scrollbar{display:none;}
-  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&family=Inter:wght@100..900&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@200..900&family=Noto+Sans+SC:wght@100..900&display=swap');
 
-  /* ---- Page routing: only the active .page is shown ---- */
+  /* ---- 页面路由：只显示当前激活的 .page ---- */
   .page{ display:none; }
   .page.is-active{ display:block; animation: pageFadeIn .5s ease both; }
   @keyframes pageFadeIn{ from{opacity:0; transform:translateY(8px);} to{opacity:1; transform:translateY(0);} }
@@ -22,13 +22,16 @@
   @keyframes fadeInUp{ from{opacity:0; transform:translateY(20px);} to{opacity:1; transform:translateY(0);} }
   @keyframes fadeIn{ from{opacity:0;} to{opacity:1;} }
 
-  /* Mobile nav */
   #mobile-nav{ display:none; }
   #mobile-nav.open{ display:flex; }
+
+  body, .font-body-lg, .font-body-md, .font-headline-md, .font-display-lg, .font-display-lg-mobile, .font-label-sm {
+    letter-spacing: 0.01em;
+  }
 </style>
 <script src="https://cdn.tailwindcss.com"></script>
 <script id="tailwind-config">
-tailwind.config={theme:{extend:{colors:{"tertiary":"#5b5c5c","outline":"#74777c","on-primary-fixed-variant":"#394857","on-primary":"#ffffff","tertiary-fixed":"#e2e2e2","primary-container":"#667686","on-error":"#ffffff","outline-variant":"#c4c7cc","on-primary-container":"#fdfcff","on-surface-variant":"#43474c","on-surface":"#1b1c1c","tertiary-fixed-dim":"#c6c6c6","on-tertiary-container":"#fdfcfc","on-secondary-container":"#636451","inverse-surface":"#303030","surface-dim":"#dbd9d9","surface-variant":"#e4e2e2","secondary":"#5e604d","on-error-container":"#93000a","on-secondary":"#ffffff","surface-container-highest":"#e4e2e2","on-tertiary-fixed-variant":"#454747","on-secondary-fixed":"#1b1d0e","on-secondary-fixed-variant":"#474836","on-background":"#1b1c1c","primary":"#4e5e6d","surface-container-low":"#f5f3f3","secondary-fixed":"#e4e4cc","on-primary-fixed":"#0d1d2a","inverse-primary":"#b8c8da","tertiary-container":"#747575","error":"#ba1a1a","error-container":"#ffdad6","background":"#fbf9f8","on-tertiary":"#ffffff","secondary-container":"#e1e1c9","surface-tint":"#50606f","surface-container-lowest":"#ffffff","surface-container":"#efeded","on-tertiary-fixed":"#1a1c1c","primary-fixed-dim":"#b8c8da","surface":"#fbf9f8","primary-fixed":"#d4e4f6","surface-bright":"#fbf9f8","secondary-fixed-dim":"#c8c8b0","inverse-on-surface":"#f2f0f0","surface-container-high":"#eae8e7"},borderRadius:{DEFAULT:"0.125rem",lg:"0.25rem",xl:"0.5rem",full:"0.75rem"},spacing:{"margin-mobile":"20px","gutter":"24px","unit":"8px","container-max":"800px","section-gap":"80px"},fontFamily:{"headline-md":["Playfair Display"],"body-lg":["Source Serif 4"],"display-lg":["Playfair Display"],"display-lg-mobile":["Playfair Display"],"body-md":["Source Serif 4"],"label-sm":["Inter"]},fontSize:{"headline-md":["28px",{lineHeight:"1.3",fontWeight:"400"}],"body-lg":["20px",{lineHeight:"1.6",fontWeight:"400"}],"display-lg":["48px",{lineHeight:"1.1",letterSpacing:"-0.02em",fontWeight:"400"}],"display-lg-mobile":["32px",{lineHeight:"1.2",fontWeight:"400"}],"body-md":["16px",{lineHeight:"1.6",fontWeight:"400"}],"label-sm":["12px",{lineHeight:"1",letterSpacing:"0.08em",fontWeight:"500"}]}}}}
+tailwind.config={theme:{extend:{colors:{"tertiary":"#5b5c5c","outline":"#74777c","on-primary-fixed-variant":"#394857","on-primary":"#ffffff","tertiary-fixed":"#e2e2e2","primary-container":"#667686","on-error":"#ffffff","outline-variant":"#c4c7cc","on-primary-container":"#fdfcff","on-surface-variant":"#43474c","on-surface":"#1b1c1c","tertiary-fixed-dim":"#c6c6c6","on-tertiary-container":"#fdfcfc","on-secondary-container":"#636451","inverse-surface":"#303030","surface-dim":"#dbd9d9","surface-variant":"#e4e2e2","secondary":"#5e604d","on-error-container":"#93000a","on-secondary":"#ffffff","surface-container-highest":"#e4e2e2","on-tertiary-fixed-variant":"#454747","on-secondary-fixed":"#1b1d0e","on-secondary-fixed-variant":"#474836","on-background":"#1b1c1c","primary":"#4e5e6d","surface-container-low":"#f5f3f3","secondary-fixed":"#e4e4cc","on-primary-fixed":"#0d1d2a","inverse-primary":"#b8c8da","tertiary-container":"#747575","error":"#ba1a1a","error-container":"#ffdad6","background":"#fbf9f8","on-tertiary":"#ffffff","secondary-container":"#e1e1c9","surface-tint":"#50606f","surface-container-lowest":"#ffffff","surface-container":"#efeded","on-tertiary-fixed":"#1a1c1c","primary-fixed-dim":"#b8c8da","surface":"#fbf9f8","primary-fixed":"#d4e4f6","surface-bright":"#fbf9f8","secondary-fixed-dim":"#c8c8b0","inverse-on-surface":"#f2f0f0","surface-container-high":"#eae8e7"},borderRadius:{DEFAULT:"0.125rem",lg:"0.25rem",xl:"0.5rem",full:"0.75rem"},spacing:{"margin-mobile":"20px","gutter":"24px","unit":"8px","container-max":"800px","section-gap":"80px"},fontFamily:{"headline-md":["Noto Serif SC","serif"],"body-lg":["Noto Serif SC","serif"],"display-lg":["Noto Serif SC","serif"],"display-lg-mobile":["Noto Serif SC","serif"],"body-md":["Noto Serif SC","serif"],"label-sm":["Noto Sans SC","sans-serif"]},fontSize:{"headline-md":["28px",{lineHeight:"1.5",fontWeight:"500"}],"body-lg":["19px",{lineHeight:"1.9",fontWeight:"400"}],"display-lg":["44px",{lineHeight:"1.3",letterSpacing:"0em",fontWeight:"600"}],"display-lg-mobile":["30px",{lineHeight:"1.4",fontWeight:"600"}],"body-md":["16px",{lineHeight:"1.9",fontWeight:"400"}],"label-sm":["12px",{lineHeight:"1.4",letterSpacing:"0.05em",fontWeight:"500"}]}}}}
 </script>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
 </head>
@@ -37,43 +40,39 @@ tailwind.config={theme:{extend:{colors:{"tertiary":"#5b5c5c","outline":"#74777c"
 <header class="fixed top-0 w-full z-50 bg-background/80 backdrop-blur-md">
   <div class="h-20 max-w-container-max mx-auto px-margin-mobile lg:px-0 flex items-center justify-between border-b border-outline-variant/30">
     <a href="#prologue" class="flex items-center gap-3 no-underline" data-nav-home>
-      <img alt="Memos logo" class="w-8 h-8 rounded-full object-cover" src="https://images.unsplash.com/photo-1470509037663-253afd7f0f51?auto=format&fit=crop&w=64&h=64&q=80"/>
-      <span class="font-headline-md text-headline-md tracking-tight text-primary">Memos</span>
+      <img alt="站点图标" class="w-8 h-8 rounded-full object-cover" src="https://images.unsplash.com/photo-1470509037663-253afd7f0f51?auto=format&fit=crop&w=64&h=64&q=80"/>
+      <span class="font-headline-md text-headline-md tracking-tight text-primary">念</span>
     </a>
 
-    <!-- Desktop nav -->
     <nav class="hidden md:flex items-center gap-gutter" id="site-nav">
-      <a class="nav-link text-body-md font-body-md text-on-surface-variant hover:text-on-surface transition-all py-1" data-page="prologue" href="#prologue">Prologue</a>
-      <a class="nav-link text-body-md font-body-md text-on-surface-variant hover:text-on-surface transition-all py-1" data-page="our-story" href="#our-story">Our Story</a>
-      <a class="nav-link text-body-md font-body-md text-on-surface-variant hover:text-on-surface transition-all py-1" data-page="life-now" href="#life-now">Life Now</a>
-      <a class="nav-link text-body-md font-body-md text-on-surface-variant hover:text-on-surface transition-all py-1" data-page="journal" href="#journal">Journal</a>
-      <a class="nav-link text-body-md font-body-md italic text-primary hover:text-primary-container transition-all py-1" data-page="dear-you" href="#dear-you">Dear You...</a>
+      <a class="nav-link text-body-md font-body-md text-on-surface-variant hover:text-on-surface transition-all py-1" data-page="prologue" href="#prologue">序</a>
+      <a class="nav-link text-body-md font-body-md text-on-surface-variant hover:text-on-surface transition-all py-1" data-page="our-story" href="#our-story">我们的故事</a>
+      <a class="nav-link text-body-md font-body-md text-on-surface-variant hover:text-on-surface transition-all py-1" data-page="life-now" href="#life-now">此刻</a>
+      <a class="nav-link text-body-md font-body-md text-on-surface-variant hover:text-on-surface transition-all py-1" data-page="journal" href="#journal">日记</a>
+      <a class="nav-link text-body-md font-body-md italic text-primary hover:text-primary-container transition-all py-1" data-page="dear-you" href="#dear-you">致你...</a>
     </nav>
 
-    <!-- Mobile menu button -->
-    <button id="mobile-nav-toggle" class="md:hidden flex items-center justify-center w-10 h-10 text-primary" aria-label="Open menu">
+    <button id="mobile-nav-toggle" class="md:hidden flex items-center justify-center w-10 h-10 text-primary" aria-label="打开菜单">
       <span class="material-symbols-outlined">menu</span>
     </button>
   </div>
 
-  <!-- Mobile nav panel -->
   <nav id="mobile-nav" class="md:hidden flex-col bg-background border-b border-outline-variant/30 px-margin-mobile py-gutter gap-4">
-    <a class="nav-link text-body-md font-body-md text-on-surface-variant py-1" data-page="prologue" href="#prologue">Prologue</a>
-    <a class="nav-link text-body-md font-body-md text-on-surface-variant py-1" data-page="our-story" href="#our-story">Our Story</a>
-    <a class="nav-link text-body-md font-body-md text-on-surface-variant py-1" data-page="life-now" href="#life-now">Life Now</a>
-    <a class="nav-link text-body-md font-body-md text-on-surface-variant py-1" data-page="journal" href="#journal">Journal</a>
-    <a class="nav-link text-body-md font-body-md italic text-primary py-1" data-page="dear-you" href="#dear-you">Dear You...</a>
+    <a class="nav-link text-body-md font-body-md text-on-surface-variant py-1" data-page="prologue" href="#prologue">序</a>
+    <a class="nav-link text-body-md font-body-md text-on-surface-variant py-1" data-page="our-story" href="#our-story">我们的故事</a>
+    <a class="nav-link text-body-md font-body-md text-on-surface-variant py-1" data-page="life-now" href="#life-now">此刻</a>
+    <a class="nav-link text-body-md font-body-md text-on-surface-variant py-1" data-page="journal" href="#journal">日记</a>
+    <a class="nav-link text-body-md font-body-md italic text-primary py-1" data-page="dear-you" href="#dear-you">致你...</a>
   </nav>
 </header>
 
 <main class="pt-20 min-h-screen">
 
 <!-- =========================================================
-     PAGE 1: PROLOGUE
+     第一页：序
      ========================================================= -->
 <section id="page-prologue" class="page is-active" data-page="prologue">
 <div class="flex flex-col w-full">
-  <!-- Hero Section: The Threshold -->
   <section class="relative w-full h-[85vh] flex items-center justify-center overflow-hidden">
     <div class="absolute inset-0 z-0">
       <div class="w-full h-full bg-cover bg-center transition-transform duration-[3000ms] hover:scale-105" style="background-image: url('https://images.unsplash.com/photo-1648737962619-16e5cd465d2b?auto=format&fit=crop&w=1600&q=80')">
@@ -82,37 +81,36 @@ tailwind.config={theme:{extend:{colors:{"tertiary":"#5b5c5c","outline":"#74777c"
     </div>
     <div class="relative z-10 max-w-container-max mx-auto px-margin-mobile lg:px-0 text-center">
       <div class="inline-block mb-unit overflow-hidden">
-        <span class="block text-label-sm font-label-sm text-primary tracking-[0.3em] uppercase opacity-0" style="animation: fadeInUp 1s ease forwards;">Chapter One</span>
+        <span class="block text-label-sm font-label-sm text-primary tracking-[0.3em] uppercase opacity-0" style="animation: fadeInUp 1s ease forwards;">序章</span>
       </div>
       <h1 class="font-display-lg text-display-lg-mobile lg:text-display-lg text-on-surface mb-gutter opacity-0" style="animation: fadeInUp 1s ease 0.3s forwards;">
-        Prologue: The Threshold
+        在这里，记录生活的点滴
       </h1>
       <div class="w-12 h-[1px] bg-outline-variant mx-auto mb-gutter opacity-0" style="animation: fadeIn 1.5s ease 0.8s forwards;"></div>
       <p class="font-body-lg text-body-lg text-on-surface-variant italic max-w-lg mx-auto leading-relaxed opacity-0" style="animation: fadeInUp 1s ease 0.6s forwards;">
-        "Memory is a quiet room, lit by the evening sun."
+        有些话，说给过去听；有些话，说给现在的自己听。
       </p>
     </div>
     <div class="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-0" style="animation: fadeIn 1s ease 1.5s forwards;">
-      <span class="text-label-sm font-label-sm text-outline-variant uppercase tracking-widest">Begin</span>
+      <span class="text-label-sm font-label-sm text-outline-variant uppercase tracking-widest">开始</span>
       <div class="w-[1px] h-12 bg-gradient-to-b from-outline-variant to-transparent"></div>
     </div>
   </section>
 
-  <!-- Narrative Introduction Section -->
   <section class="w-full py-section-gap bg-surface">
     <div class="max-w-container-max mx-auto px-margin-mobile lg:px-0">
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter items-start">
         <div class="hidden lg:block lg:col-span-1 [writing-mode:vertical-rl] pt-2">
-          <span class="text-label-sm font-label-sm text-outline uppercase tracking-widest opacity-40">Entry No. 01</span>
+          <span class="text-label-sm font-label-sm text-outline uppercase tracking-widest opacity-40">记录 01</span>
         </div>
         <div class="lg:col-span-8 lg:col-start-3">
           <div class="flex flex-col gap-12">
             <div class="space-y-6">
               <p class="font-body-lg text-body-lg text-on-surface leading-loose">
-                We often think of the past as a library of dusty volumes, stacked high and out of reach. But here, in this space, it feels more like the slant of light hitting a specific chair at 4:00 PM. It is persistent, warm, and deceptively still.
+                一封不会邮寄的信，一个记忆的角落。
               </p>
               <p class="font-body-lg text-body-lg text-on-surface-variant leading-loose">
-                This archive is not a collection of facts. It is a collection of residues—the scent of rain on hot pavement, the specific weight of a ceramic cup, the way a conversation ends before the silence begins.
+                这里没有终点，只有慢慢写下去的时间。
               </p>
             </div>
             <div class="py-unit">
@@ -125,11 +123,11 @@ tailwind.config={theme:{extend:{colors:{"tertiary":"#5b5c5c","outline":"#74777c"
             <div class="grid grid-cols-1 md:grid-cols-2 gap-gutter italic text-on-surface-variant/80">
               <div class="p-gutter bg-surface-container-low rounded-lg shadow-sm">
                 <span class="material-symbols-outlined text-primary mb-2">auto_stories</span>
-                <p class="font-body-md text-body-md">The stories we tell ourselves are the only maps we have through the fog of time.</p>
+                <p class="font-body-md text-body-md">有些话，说给过去听。</p>
               </div>
               <div class="p-gutter border border-outline-variant/30 rounded-lg flex flex-col justify-end">
-                <span class="text-label-sm font-label-sm uppercase tracking-tighter mb-1">Perspective</span>
-                <p class="font-body-md text-body-md">Every threshold crossed is a memory gained, and a moment lost to the current.</p>
+                <span class="text-label-sm font-label-sm uppercase tracking-tighter mb-1">此刻</span>
+                <p class="font-body-md text-body-md">有些话，说给现在的自己听。</p>
               </div>
             </div>
           </div>
@@ -138,7 +136,6 @@ tailwind.config={theme:{extend:{colors:{"tertiary":"#5b5c5c","outline":"#74777c"
     </div>
   </section>
 
-  <!-- Visual Anchor Section -->
   <section class="w-full bg-surface-container-lowest">
     <div class="max-w-container-max mx-auto px-margin-mobile lg:px-0 py-section-gap">
       <div class="relative group">
@@ -146,11 +143,11 @@ tailwind.config={theme:{extend:{colors:{"tertiary":"#5b5c5c","outline":"#74777c"
           <div class="w-full h-full bg-cover bg-center saturate-[0.8] sepia-[0.1]" style="background-image: url('https://images.unsplash.com/photo-1749733600739-23f17b79f788?auto=format&fit=crop&w=1600&q=80')"></div>
         </div>
         <div class="absolute -bottom-12 -right-4 lg:-right-12 bg-background p-8 shadow-xl max-w-xs border border-outline-variant/10">
-          <span class="text-label-sm font-label-sm text-primary uppercase block mb-2">Location Notes</span>
-          <h3 class="font-headline-md text-headline-md text-on-surface mb-4">The Golden Hour</h3>
-          <p class="font-body-md text-body-md text-on-surface-variant mb-6">Captured at the intersection of Rue de Varenne. The light held for exactly seven minutes.</p>
+          <span class="text-label-sm font-label-sm text-primary uppercase block mb-2">小记</span>
+          <h3 class="font-headline-md text-headline-md text-on-surface mb-4">记录</h3>
+          <p class="font-body-md text-body-md text-on-surface-variant mb-6">在这里，我记录了生活的点滴。</p>
           <button class="group flex items-center gap-3 text-label-sm font-label-sm uppercase tracking-widest text-primary hover:text-on-surface transition-colors" data-page-link="our-story">
-            Explore Our Story
+            继续读我们的故事
             <span class="material-symbols-outlined text-[18px] group-hover:translate-x-1 transition-transform">arrow_forward</span>
           </button>
         </div>
@@ -158,16 +155,15 @@ tailwind.config={theme:{extend:{colors:{"tertiary":"#5b5c5c","outline":"#74777c"
     </div>
   </section>
 
-  <!-- Transition Section -->
   <section class="w-full py-section-gap">
     <div class="max-w-container-max mx-auto px-margin-mobile text-center">
       <div class="inline-flex items-center gap-4 mb-gutter">
         <div class="w-8 h-[1px] bg-outline-variant"></div>
-        <span class="text-label-sm font-label-sm text-outline uppercase tracking-[0.2em]">Next Chapter</span>
+        <span class="text-label-sm font-label-sm text-outline uppercase tracking-[0.2em]">下一章</span>
         <div class="w-8 h-[1px] bg-outline-variant"></div>
       </div>
       <a class="page-link block font-display-lg text-display-lg-mobile lg:text-display-lg text-on-surface-variant hover:text-primary transition-colors duration-500" data-page="our-story" href="#our-story">
-        Our Story
+        我们的故事
       </a>
     </div>
   </section>
@@ -175,16 +171,16 @@ tailwind.config={theme:{extend:{colors:{"tertiary":"#5b5c5c","outline":"#74777c"
 </section>
 
 <!-- =========================================================
-     PAGE 2: OUR STORY
+     第二页：我们的故事
      ========================================================= -->
 <section id="page-our-story" class="page" data-page="our-story">
 <div class="flex flex-col w-full">
   <section class="w-full py-section-gap bg-surface">
     <div class="max-w-container-max mx-auto px-margin-mobile lg:px-0 text-center">
-      <span class="font-label-sm text-label-sm text-outline uppercase tracking-[0.3em]">Chapter Two</span>
-      <h1 class="font-display-lg text-display-lg-mobile lg:text-display-lg text-on-surface mt-gutter mb-gutter">Our Story</h1>
+      <span class="font-label-sm text-label-sm text-outline uppercase tracking-[0.3em]">第二章</span>
+      <h1 class="font-display-lg text-display-lg-mobile lg:text-display-lg text-on-surface mt-gutter mb-gutter">我们的故事</h1>
       <p class="font-body-lg text-body-lg text-on-surface-variant italic max-w-lg mx-auto leading-relaxed">
-        Every archive needs an origin. This is where ours begins — replace this with the real beginning whenever you're ready.
+        2021年2月8日，我们开始了这一切。
       </p>
     </div>
   </section>
@@ -193,57 +189,66 @@ tailwind.config={theme:{extend:{colors:{"tertiary":"#5b5c5c","outline":"#74777c"
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-section-gap items-center">
       <div class="relative order-2 lg:order-1">
         <div class="aspect-[4/5] w-full overflow-hidden rounded-xl shadow-xl">
-          <img alt="Warm cafe corner where a story might begin" class="w-full h-full object-cover" src="https://images.unsplash.com/photo-1754338785183-70cd3cce3d21?auto=format&fit=crop&w=1000&q=80"/>
+          <img alt="温暖的咖啡馆一角" class="w-full h-full object-cover" src="https://images.unsplash.com/photo-1754338785183-70cd3cce3d21?auto=format&fit=crop&w=1000&q=80"/>
         </div>
       </div>
       <div class="order-1 lg:order-2 space-y-6">
-        <span class="font-label-sm text-label-sm text-outline uppercase tracking-widest">Placeholder Copy</span>
+        <span class="font-label-sm text-label-sm text-outline uppercase tracking-widest">起点</span>
         <p class="font-body-lg text-body-lg text-on-surface leading-relaxed">
-          This is where the first meeting, the first conversation, or the first spark gets written down. For now, this paragraph is a placeholder — swap it out for the real memory whenever you have it ready.
+          一开始，就遇到过一次很艰难的考验。
         </p>
         <p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">
-          Keep it in your own words. The rest of the page is built to hold a short, chronological set of milestones underneath — perfect for the handful of moments that mark how the story unfolded.
+          五年了。
         </p>
       </div>
     </div>
   </section>
 
-  <!-- Milestones: a real sequence, so numbering earns its place here -->
+  <!-- 里程碑：真实的时间线，因此在这里使用编号是合适的 -->
   <section class="w-full bg-secondary-container/20 py-section-gap">
     <div class="max-w-container-max mx-auto px-margin-mobile lg:px-0">
-      <h2 class="font-headline-md text-headline-md text-on-secondary-container text-center mb-section-gap">Milestones</h2>
+      <h2 class="font-headline-md text-headline-md text-on-secondary-container text-center mb-section-gap">里程碑</h2>
       <div class="flex flex-col gap-gutter">
 
         <div class="flex gap-gutter items-start">
           <span class="font-display-lg text-[32px] text-primary/40 w-16 shrink-0">01</span>
           <div class="flex-1 pb-gutter border-b border-outline-variant/20">
-            <time class="font-label-sm text-label-sm text-outline uppercase tracking-widest">Month, Year</time>
-            <h3 class="font-headline-md text-headline-md text-on-surface mt-1 mb-2">The First Meeting</h3>
-            <p class="font-body-md text-body-md text-on-surface-variant">Placeholder — describe how it started.</p>
+            <time class="font-label-sm text-label-sm text-outline uppercase tracking-widest">五年间</time>
+            <h3 class="font-headline-md text-headline-md text-on-surface mt-1 mb-2">疫情与两只猫</h3>
+            <p class="font-body-md text-body-md text-on-surface-variant">中间经历过疫情，养大了Freedom和贝果——我们的两只猫。</p>
           </div>
         </div>
 
         <div class="flex gap-gutter items-start">
           <span class="font-display-lg text-[32px] text-primary/40 w-16 shrink-0">02</span>
           <div class="flex-1 pb-gutter border-b border-outline-variant/20">
-            <time class="font-label-sm text-label-sm text-outline uppercase tracking-widest">Month, Year</time>
-            <h3 class="font-headline-md text-headline-md text-on-surface mt-1 mb-2">A Turning Point</h3>
-            <p class="font-body-md text-body-md text-on-surface-variant">Placeholder — describe the moment things changed.</p>
+            <time class="font-label-sm text-label-sm text-outline uppercase tracking-widest">五年间</time>
+            <h3 class="font-headline-md text-headline-md text-on-surface mt-1 mb-2">工作与难关</h3>
+            <p class="font-body-md text-body-md text-on-surface-variant">经历过工作的变动，经历过很多次，连我自己都数不清的困难。</p>
           </div>
         </div>
 
         <div class="flex gap-gutter items-start">
           <span class="font-display-lg text-[32px] text-primary/40 w-16 shrink-0">03</span>
+          <div class="flex-1 pb-gutter border-b border-outline-variant/20">
+            <time class="font-label-sm text-label-sm text-outline uppercase tracking-widest">现在</time>
+            <h3 class="font-headline-md text-headline-md text-on-surface mt-1 mb-2">说不出口的</h3>
+            <p class="font-body-md text-body-md text-on-surface-variant">有些回忆，我没办法细写，一靠近就会难过得说不出话。</p>
+          </div>
+        </div>
+
+        <div class="flex gap-gutter items-start">
+          <span class="font-display-lg text-[32px] text-primary/40 w-16 shrink-0">04</span>
           <div class="flex-1">
-            <time class="font-label-sm text-label-sm text-outline uppercase tracking-widest">Month, Year</time>
-            <h3 class="font-headline-md text-headline-md text-on-surface mt-1 mb-2">Where We Are Now</h3>
-            <p class="font-body-md text-body-md text-on-surface-variant">Placeholder — describe the present chapter.</p>
+            <time class="font-label-sm text-label-sm text-outline uppercase tracking-widest">心愿</time>
+            <h3 class="font-headline-md text-headline-md text-on-surface mt-1 mb-2">简单的愿望</h3>
+            <p class="font-body-md text-body-md text-on-surface-variant">我想要的其实很简单——普通地生活，幸福地，长长久久地一起变老。</p>
           </div>
         </div>
 
       </div>
       <p class="font-body-md text-body-md text-outline text-center mt-section-gap italic">
-        Add as many milestones as you like — just copy one of the blocks above in the HTML and update the number, date, title, and text.
+        可以随时增加更多里程碑——复制上面的一个区块，更新序号、日期、标题与内容即可。
       </p>
     </div>
   </section>
@@ -252,11 +257,11 @@ tailwind.config={theme:{extend:{colors:{"tertiary":"#5b5c5c","outline":"#74777c"
     <div class="max-w-container-max mx-auto px-margin-mobile text-center">
       <div class="inline-flex items-center gap-4 mb-gutter">
         <div class="w-8 h-[1px] bg-outline-variant"></div>
-        <span class="text-label-sm font-label-sm text-outline uppercase tracking-[0.2em]">Next Chapter</span>
+        <span class="text-label-sm font-label-sm text-outline uppercase tracking-[0.2em]">下一章</span>
         <div class="w-8 h-[1px] bg-outline-variant"></div>
       </div>
       <a class="page-link block font-display-lg text-display-lg-mobile lg:text-display-lg text-on-surface-variant hover:text-primary transition-colors duration-500" data-page="life-now" href="#life-now">
-        Life Now
+        此刻
       </a>
     </div>
   </section>
@@ -264,29 +269,29 @@ tailwind.config={theme:{extend:{colors:{"tertiary":"#5b5c5c","outline":"#74777c"
 </section>
 
 <!-- =========================================================
-     PAGE 3: LIFE NOW
+     第三页：此刻
      ========================================================= -->
 <section id="page-life-now" class="page" data-page="life-now">
 <div class="flex flex-col w-full">
   <section class="relative w-full overflow-hidden bg-surface">
     <div class="max-w-container-max mx-auto px-margin-mobile lg:px-0 py-section-gap flex flex-col items-center">
       <div class="w-full flex justify-between items-end mb-unit">
-        <span class="font-label-sm text-label-sm text-primary uppercase tracking-[0.2em] [writing-mode:vertical-rl] rotate-180 h-32 flex items-center justify-end border-r border-outline-variant/30 pr-4">Present Tense</span>
+        <span class="font-label-sm text-label-sm text-primary uppercase tracking-[0.2em] [writing-mode:vertical-rl] rotate-180 h-32 flex items-center justify-end border-r border-outline-variant/30 pr-4">现在时态</span>
         <div class="flex-1 pl-gutter">
           <h1 class="font-display-lg text-display-lg text-on-surface mb-gutter max-w-xl leading-none">
-            Life Now: <br/>
-            <span class="italic text-primary-container">The Weight of Breath</span>
+            此刻：<br/>
+            <span class="italic text-primary-container">你曾经问过我，爱会变淡吗？</span>
           </h1>
         </div>
       </div>
       <div class="relative w-full mt-gutter group">
         <div class="aspect-[1.79] w-full overflow-hidden rounded-xl shadow-xl transition-transform duration-700 hover:scale-[1.01]">
-          <img alt="Sun-drenched empty cafe corner" class="w-full h-full object-cover" src="https://images.unsplash.com/photo-1754338785183-70cd3cce3d21?auto=format&fit=crop&w=1600&q=80"/>
+          <img alt="阳光洒落的空咖啡馆一角" class="w-full h-full object-cover" src="https://images.unsplash.com/photo-1754338785183-70cd3cce3d21?auto=format&fit=crop&w=1600&q=80"/>
           <div class="absolute inset-0 bg-gradient-to-t from-background/40 to-transparent pointer-events-none"></div>
         </div>
         <div class="absolute -bottom-8 -right-8 bg-surface-container p-gutter max-w-xs shadow-lg hidden lg:block">
           <p class="font-body-md text-on-surface-variant italic">
-            "The golden dust motes dance in a light that doesn't ask for anything but our witness."
+            深到我不敢轻易去想起。
           </p>
         </div>
       </div>
@@ -297,15 +302,15 @@ tailwind.config={theme:{extend:{colors:{"tertiary":"#5b5c5c","outline":"#74777c"
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter items-start">
       <div class="lg:col-span-5 flex flex-col gap-section-gap">
         <div class="flex flex-col">
-          <span class="font-label-sm text-label-sm text-outline uppercase mb-unit">01. Sensory Anchor</span>
+          <span class="font-label-sm text-label-sm text-outline uppercase mb-unit">01. 问题</span>
           <p class="font-body-lg text-body-lg text-on-surface leading-relaxed">
-            In the stillness of this corner, time isn't measured by the clock, but by the slow evaporation of steam from a ceramic rim. The air carries the faint, grounding scent of roasted beans and old paper.
+            你曾经问过我，爱会变淡吗？
           </p>
         </div>
         <div class="flex flex-col">
-          <span class="font-label-sm text-label-sm text-outline uppercase mb-unit">02. Tactile Reality</span>
+          <span class="font-label-sm text-label-sm text-outline uppercase mb-unit">02. 回答</span>
           <p class="font-body-md text-body-md text-on-surface-variant">
-            Run your fingers across the tabletop. Feel the grain of the oak—the microscopic ridges where the wood grew faster in the rain of a decade forgotten. This is the weight of the present: hard, cool, and undeniably here.
+            可是即使身在海外，即使我们已经分开，这份爱却一天一天地在加深。
           </p>
         </div>
       </div>
@@ -320,13 +325,13 @@ tailwind.config={theme:{extend:{colors:{"tertiary":"#5b5c5c","outline":"#74777c"
           <div class="relative z-10 space-y-gutter">
             <div class="flex items-center gap-4">
               <span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">air</span>
-              <span class="font-label-sm text-label-sm text-primary tracking-widest uppercase">The Breath Metric</span>
+              <span class="font-label-sm text-label-sm text-primary tracking-widest uppercase">以前 / 现在</span>
             </div>
             <p class="font-headline-md text-headline-md text-on-surface leading-tight">
-              There is a quiet dignity in an empty chair. It suggests a space held open—not for someone else, but for the version of you that knows how to simply exist.
+              以前，我只是想发现生活里美好的事，分享给你，想一直和你保持联系。现在，我没办法再给你发消息了。
             </p>
             <div class="pt-gutter border-t border-outline-variant/30 flex justify-between items-center">
-              <span class="font-body-md text-on-surface-variant italic">Current Pulse</span>
+              <span class="font-body-md text-on-surface-variant italic">此刻的心跳</span>
               <div class="flex gap-2">
                 <div class="w-2 h-2 rounded-full bg-primary animate-pulse"></div>
                 <div class="w-2 h-2 rounded-full bg-primary/40"></div>
@@ -338,11 +343,11 @@ tailwind.config={theme:{extend:{colors:{"tertiary":"#5b5c5c","outline":"#74777c"
         <div class="grid grid-cols-2 gap-gutter">
           <div class="aspect-square bg-surface-container-highest rounded-lg flex flex-col items-center justify-center p-gutter text-center group hover:bg-primary transition-colors duration-500">
             <span class="material-symbols-outlined text-outline group-hover:text-on-primary mb-2">texture</span>
-            <span class="font-label-sm text-label-sm text-on-surface-variant group-hover:text-on-primary uppercase">Grain</span>
+            <span class="font-label-sm text-label-sm text-on-surface-variant group-hover:text-on-primary uppercase">纹理</span>
           </div>
           <div class="aspect-square bg-surface-container-highest rounded-lg flex flex-col items-center justify-center p-gutter text-center group hover:bg-primary transition-colors duration-500">
             <span class="material-symbols-outlined text-outline group-hover:text-on-primary mb-2">cloud</span>
-            <span class="font-label-sm text-label-sm text-on-surface-variant group-hover:text-on-primary uppercase">Mist</span>
+            <span class="font-label-sm text-label-sm text-on-surface-variant group-hover:text-on-primary uppercase">薄雾</span>
           </div>
         </div>
       </div>
@@ -351,22 +356,22 @@ tailwind.config={theme:{extend:{colors:{"tertiary":"#5b5c5c","outline":"#74777c"
 
   <section class="w-full bg-secondary-container/30 py-section-gap mt-section-gap">
     <div class="max-w-container-max mx-auto px-margin-mobile lg:px-0 flex flex-col items-center text-center">
-      <span class="font-label-sm text-label-sm text-secondary uppercase tracking-[0.3em] mb-gutter">A Momentary Practice</span>
+      <span class="font-label-sm text-label-sm text-secondary uppercase tracking-[0.3em] mb-gutter">片刻练习</span>
       <h2 class="font-headline-md text-headline-md text-on-secondary-container mb-section-gap max-w-lg">
-        Close your eyes and name three textures within your reach.
+        闭上眼睛，说出你触手可及的三种质感。
       </h2>
       <div class="w-full max-w-md space-y-gutter">
         <div class="relative">
-          <input class="w-full bg-transparent border-b border-outline-variant py-4 font-body-md text-on-surface outline-none focus:border-primary transition-colors placeholder:text-outline/50" placeholder="The first touch..." type="text"/>
+          <input class="w-full bg-transparent border-b border-outline-variant py-4 font-body-md text-on-surface outline-none focus:border-primary transition-colors placeholder:text-outline/50" placeholder="第一次触碰……" type="text"/>
         </div>
         <div class="relative">
-          <input class="w-full bg-transparent border-b border-outline-variant py-4 font-body-md text-on-surface outline-none focus:border-primary transition-colors placeholder:text-outline/50" placeholder="The second weight..." type="text"/>
+          <input class="w-full bg-transparent border-b border-outline-variant py-4 font-body-md text-on-surface outline-none focus:border-primary transition-colors placeholder:text-outline/50" placeholder="第二重重量……" type="text"/>
         </div>
         <div class="relative">
-          <input class="w-full bg-transparent border-b border-outline-variant py-4 font-body-md text-on-surface outline-none focus:border-primary transition-colors placeholder:text-outline/50" placeholder="The final breath..." type="text"/>
+          <input class="w-full bg-transparent border-b border-outline-variant py-4 font-body-md text-on-surface outline-none focus:border-primary transition-colors placeholder:text-outline/50" placeholder="最后一次呼吸……" type="text"/>
         </div>
         <button class="mt-gutter px-12 py-4 border border-secondary text-secondary font-label-sm uppercase tracking-widest hover:bg-secondary hover:text-on-secondary transition-all duration-300" type="button" id="archive-feeling-btn">
-          Archive This Feeling
+          归档这份感受
         </button>
       </div>
     </div>
@@ -376,17 +381,17 @@ tailwind.config={theme:{extend:{colors:{"tertiary":"#5b5c5c","outline":"#74777c"
     <div class="flex flex-col lg:flex-row items-center gap-section-gap">
       <div class="flex-1 order-2 lg:order-1">
         <p class="font-body-lg text-body-lg text-on-surface-variant leading-relaxed">
-          The weight of breath is surprisingly light when you stop trying to hold it. Like the light in that cafe corner, it simply lands. It fills the space it's given. It warms what it touches, then it moves on, leaving only the memory of warmth.
+          我只能用忙碌去填满生活，让自己没有时间去想——不然，那种难过，会让我窒息。所以从6月29号到现在，我一天也没有停下来。我怕，如果自己进步得太慢，拖得太久，就再也见不到你了。
         </p>
         <div class="mt-gutter flex items-center gap-4">
           <div class="h-px flex-1 bg-outline-variant/30"></div>
-          <span class="font-label-sm text-label-sm text-outline italic">09:42 AM — The Quiet Hour</span>
+          <span class="font-label-sm text-label-sm text-outline italic">6月29日 至今</span>
         </div>
       </div>
       <div class="w-full lg:w-1/3 order-1 lg:order-2">
         <div class="aspect-[3/4] bg-surface-container rounded-full overflow-hidden shadow-inner flex items-center justify-center p-12 relative">
           <div class="w-full h-full border border-primary/20 rounded-full flex items-center justify-center" style="animation: spin 20s linear infinite;">
-            <span class="font-label-sm text-label-sm text-primary uppercase tracking-tighter opacity-40 [writing-mode:vertical-rl]">The Present Moment is Enough • </span>
+            <span class="font-label-sm text-label-sm text-primary uppercase tracking-tighter opacity-40 [writing-mode:vertical-rl]">我从未停下 • </span>
           </div>
           <div class="absolute flex flex-col items-center">
             <span class="material-symbols-outlined text-primary text-4xl opacity-80">spa</span>
@@ -399,19 +404,19 @@ tailwind.config={theme:{extend:{colors:{"tertiary":"#5b5c5c","outline":"#74777c"
 </section>
 
 <!-- =========================================================
-     PAGE 4: LIVING JOURNAL
+     第四页：日记
      ========================================================= -->
 <section id="page-journal" class="page" data-page="journal">
 <div class="flex flex-col w-full">
   <section class="max-w-container-max mx-auto px-margin-mobile lg:px-0 w-full py-section-gap">
     <div class="flex flex-col md:flex-row md:items-end justify-between gap-gutter">
       <div class="space-y-unit">
-        <span class="font-label-sm text-label-sm uppercase tracking-widest text-outline">Digital Archive</span>
-        <h1 class="font-display-lg text-display-lg text-on-surface">The Living Journal</h1>
+        <span class="font-label-sm text-label-sm uppercase tracking-widest text-outline">数字档案</span>
+        <h1 class="font-display-lg text-display-lg text-on-surface">生活手记</h1>
       </div>
       <div class="flex items-center gap-4 text-primary">
         <span class="material-symbols-outlined text-[20px]">filter_list</span>
-        <span class="font-label-sm text-label-sm uppercase tracking-widest">Sorted by Date</span>
+        <span class="font-label-sm text-label-sm uppercase tracking-widest">按时间排序</span>
       </div>
     </div>
     <div class="h-px w-full bg-outline-variant/30 mt-gutter"></div>
@@ -420,36 +425,35 @@ tailwind.config={theme:{extend:{colors:{"tertiary":"#5b5c5c","outline":"#74777c"
   <section class="max-w-container-max mx-auto px-margin-mobile lg:px-0 w-full pb-section-gap">
     <div class="grid grid-cols-1 md:grid-cols-12 gap-section-gap">
 
-      <!-- Entry List: populated automatically from the journalEntries array in the <script> below -->
+      <!-- 日记条目列表：由下方 <script> 中的 journalEntries 数组自动生成 -->
       <div class="md:col-span-7 flex flex-col gap-16" id="journal-entry-list">
         <!-- entries injected here by JS -->
       </div>
 
-      <!-- Sidebar / Visual Anchor -->
       <aside class="md:col-span-5 relative">
         <div class="sticky top-24 space-y-gutter">
           <div class="relative group overflow-hidden rounded-xl shadow-xl bg-surface-container-high">
-            <img alt="Cozy cafe corner" class="w-full aspect-square object-cover opacity-90 group-hover:scale-105 transition-transform duration-1000" src="https://images.unsplash.com/photo-1648737962619-16e5cd465d2b?auto=format&fit=crop&w=1000&q=80"/>
+            <img alt="温暖的咖啡馆一角" class="w-full aspect-square object-cover opacity-90 group-hover:scale-105 transition-transform duration-1000" src="https://images.unsplash.com/photo-1648737962619-16e5cd465d2b?auto=format&fit=crop&w=1000&q=80"/>
             <div class="absolute inset-0 bg-gradient-to-t from-on-surface/40 via-transparent to-transparent pointer-events-none"></div>
             <div class="absolute bottom-6 left-6 right-6">
-              <span class="font-label-sm text-label-sm text-white/90 uppercase tracking-widest">Atmosphere</span>
-              <p class="font-headline-md text-white mt-1">The Sanctuary</p>
+              <span class="font-label-sm text-label-sm text-white/90 uppercase tracking-widest">氛围</span>
+              <p class="font-headline-md text-white mt-1">避风港</p>
             </div>
           </div>
           <div class="p-gutter bg-surface-container-low rounded-xl space-y-4">
-            <h3 class="font-headline-md text-headline-md text-primary">Journal Stats</h3>
+            <h3 class="font-headline-md text-headline-md text-primary">记录简况</h3>
             <div class="flex justify-between items-end">
-              <span class="font-label-sm text-outline uppercase">Active Streak</span>
-              <span class="font-display-lg text-[32px] text-on-surface" id="journal-streak">— <span class="text-body-md font-body-md text-outline">Days</span></span>
+              <span class="font-label-sm text-outline uppercase">已记录</span>
+              <span class="font-display-lg text-[32px] text-on-surface" id="journal-streak">— <span class="text-body-md font-body-md text-outline">篇</span></span>
             </div>
             <div class="w-full bg-outline-variant/20 h-1.5 rounded-full overflow-hidden">
               <div class="bg-primary h-full transition-all duration-1000 ease-out" id="progress-bar" style="width: 0%"></div>
             </div>
-            <p class="font-body-md text-body-md text-on-surface-variant">Your thoughts are becoming a garden. Keep tending to them.</p>
+            <p class="font-body-md text-body-md text-on-surface-variant">健身是我保持状态的方式，感觉身材好像也有了些变化。</p>
           </div>
           <button class="w-full py-4 px-gutter bg-primary text-on-primary font-label-sm text-label-sm uppercase tracking-widest rounded-xl hover:bg-primary-container transition-all flex items-center justify-center gap-2" id="new-entry-btn" type="button">
             <span class="material-symbols-outlined text-[20px]">add</span>
-            New Entry
+            新增日记
           </button>
         </div>
       </aside>
@@ -459,40 +463,40 @@ tailwind.config={theme:{extend:{colors:{"tertiary":"#5b5c5c","outline":"#74777c"
 </section>
 
 <!-- =========================================================
-     PAGE 5: DEAR YOU...
+     第五页：致你...
      ========================================================= -->
 <section id="page-dear-you" class="page" data-page="dear-you">
 <div class="flex flex-col w-full">
   <section class="relative w-full flex flex-col lg:flex-row items-center gap-section-gap px-margin-mobile lg:px-gutter py-section-gap overflow-hidden">
     <div class="absolute top-10 left-10 [writing-mode:vertical-rl] opacity-20 pointer-events-none">
-      <span class="font-label-sm text-label-sm uppercase tracking-[0.3em] text-on-surface">Final Memoir</span>
+      <span class="font-label-sm text-label-sm uppercase tracking-[0.3em] text-on-surface">最后的记忆</span>
     </div>
     <div class="relative w-full lg:w-1/2 flex justify-center">
       <div class="relative group">
         <div class="absolute -inset-4 bg-surface-container-high/50 blur-xl rounded-full scale-95 group-hover:scale-105 transition-transform duration-1000"></div>
         <div class="relative aspect-square w-full max-w-[500px] overflow-hidden shadow-2xl transition-all duration-700 hover:shadow-primary/10">
-          <img alt="Sunflowers in a glass vase" class="w-full h-full object-cover scale-100 hover:scale-105 transition-transform duration-[3000ms] ease-out" src="https://images.unsplash.com/photo-1757681843238-dd02aee97906?auto=format&fit=crop&w=1000&q=80"/>
+          <img alt="玻璃花瓶里的向日葵" class="w-full h-full object-cover scale-100 hover:scale-105 transition-transform duration-[3000ms] ease-out" src="https://images.unsplash.com/photo-1757681843238-dd02aee97906?auto=format&fit=crop&w=1000&q=80"/>
           <div class="absolute inset-0 bg-gradient-to-t from-background/40 to-transparent pointer-events-none"></div>
         </div>
         <div class="absolute -bottom-6 -right-6 bg-surface-container-lowest p-6 shadow-xl hidden lg:block">
-          <p class="font-label-sm text-label-sm text-primary uppercase tracking-widest">Moment No. 114</p>
+          <p class="font-label-sm text-label-sm text-primary uppercase tracking-widest">致你</p>
         </div>
       </div>
     </div>
     <div class="w-full lg:w-1/2 flex flex-col max-w-[480px]">
       <div class="mb-gutter">
-        <span class="font-label-sm text-label-sm text-outline uppercase tracking-[0.2em]">The Final Word</span>
+        <span class="font-label-sm text-label-sm text-outline uppercase tracking-[0.2em]">最后的话</span>
       </div>
       <h1 class="font-display-lg text-display-lg-mobile lg:text-display-lg text-primary mb-12 italic leading-tight">
-        What I Want <br/>
-        To Say To You
+        我想对你说<br/>
+        的话
       </h1>
       <div class="space-y-8">
         <p class="font-body-lg text-body-lg text-on-surface-variant leading-relaxed">
-          There is a specific kind of silence that follows your departure. It is not empty; it is heavy, filled with the echoes of things left unsaid and the phantom weight of your presence.
+          我不知道明天会是什么样子。但我知道，我依然深深爱着你。我依然坚持着那个承诺。
         </p>
         <p class="font-body-lg text-body-lg text-on-surface-variant leading-relaxed">
-          I keep finding you in the small things. The way the light hits the floor at four in the afternoon. The specific sound of a page turning. A single leaf resting where it shouldn't be.
+          如果我们真的没办法在一起，我会注销我所有的账户。但我不会删掉你的联系方式——那是我唯一不舍得放手的东西。
         </p>
       </div>
     </div>
@@ -501,17 +505,17 @@ tailwind.config={theme:{extend:{colors:{"tertiary":"#5b5c5c","outline":"#74777c"
   <section class="w-full max-w-container-max mx-auto px-margin-mobile lg:px-0 py-section-gap flex flex-col items-center text-center">
     <div class="w-px h-32 bg-gradient-to-b from-outline-variant/50 to-transparent mb-section-gap"></div>
     <div class="relative w-full max-w-prose">
-      <span class="absolute -top-12 -left-8 font-display-lg text-[80px] text-primary/5 select-none italic">Dear...</span>
+      <span class="absolute -top-12 -left-8 font-display-lg text-[80px] text-primary/5 select-none italic">致…</span>
       <div class="space-y-12">
         <p class="font-body-lg text-body-lg text-on-surface italic leading-loose">
-          If I could reach through the distance of then and now, I would tell you that I finally understand. Every quiet moment we shared was a library of memories I am still learning to read.
+          只有这里，我留着，也会一直留着。
         </p>
         <p class="font-body-lg text-body-lg text-on-surface italic leading-loose">
-          I want you to know that the world is still beautiful, though it is a different kind of beauty now—one tinted with the longing of your absence. I carry your memory not as a burden, but as a lantern.
+          这是最后一处角落，安静地，属于你，也属于我们。
         </p>
         <div class="pt-12">
-          <p class="font-headline-md text-headline-md text-primary mb-2 italic">With everything I am,</p>
-          <p class="font-label-sm text-label-sm text-outline uppercase tracking-widest mt-4">Me</p>
+          <p class="font-headline-md text-headline-md text-primary mb-2 italic">以我全部的爱，</p>
+          <p class="font-label-sm text-label-sm text-outline uppercase tracking-widest mt-4">我</p>
         </div>
       </div>
     </div>
@@ -524,15 +528,15 @@ tailwind.config={theme:{extend:{colors:{"tertiary":"#5b5c5c","outline":"#74777c"
   <section class="w-full bg-surface-container-low/30 py-section-gap mt-section-gap">
     <div class="max-w-container-max mx-auto px-margin-mobile flex flex-col lg:flex-row gap-gutter">
       <div class="flex-1 bg-surface-container-lowest p-12 shadow-sm">
-        <span class="font-label-sm text-label-sm text-outline uppercase block mb-6">Observation</span>
+        <span class="font-label-sm text-label-sm text-outline uppercase block mb-6">一点感悟</span>
         <p class="font-body-md text-body-md text-on-surface-variant italic">
-          "The heart is a vessel that only grows larger the more it is emptied."
+          "心，越是被掏空，才越能盛得下更多。"
         </p>
       </div>
       <div class="flex-1 flex flex-col justify-end lg:pb-12">
         <div class="border-l border-outline-variant/30 pl-8">
-          <p class="font-label-sm text-label-sm text-outline uppercase tracking-widest mb-2">Location</p>
-          <p class="font-body-md text-body-md text-on-surface">The quietest corner of the room.</p>
+          <p class="font-label-sm text-label-sm text-outline uppercase tracking-widest mb-2">地点</p>
+          <p class="font-body-md text-body-md text-on-surface">房间里最安静的角落。</p>
         </div>
       </div>
     </div>
@@ -544,9 +548,9 @@ tailwind.config={theme:{extend:{colors:{"tertiary":"#5b5c5c","outline":"#74777c"
 
 <footer class="w-full py-section-gap bg-surface-container-lowest mt-section-gap border-t border-outline-variant/20">
   <div class="max-w-container-max mx-auto px-margin-mobile text-center">
-    <p class="font-headline-md text-headline-md text-on-surface-variant opacity-60 mb-unit">Thank you for remembering.</p>
+    <p class="font-headline-md text-headline-md text-on-surface-variant opacity-60 mb-unit">谢谢你，还记得。</p>
     <div class="flex justify-center gap-gutter mt-unit">
-      <span class="text-label-sm font-label-sm text-outline uppercase tracking-widest">Est. 2024</span>
+      <span class="text-label-sm font-label-sm text-outline uppercase tracking-widest">始于 2021年2月8日</span>
     </div>
   </div>
 </footer>
@@ -557,43 +561,27 @@ tailwind.config={theme:{extend:{colors:{"tertiary":"#5b5c5c","outline":"#74777c"
 
 <script>
 /* =====================================================================
-   JOURNAL ENTRIES
+   日记条目 JOURNAL ENTRIES
    ---------------------------------------------------------------------
-   To add a new memory, copy one of the objects below (between the { }),
-   paste it as a new item in the array, and fill in your own text.
-   Newest entries should go at the TOP of the array — they're shown in
-   the order you list them here.
+   要新增一篇日记：复制下面 { } 之间的一个对象，粘贴为数组中的新条目，
+   然后填入你自己的文字即可。新的日记请放在数组【最前面】——
+   条目会按你在这里排列的顺序显示。
 
-   Fields:
-     date      - shown as-is, e.g. "October 24, 2024"
-     mood      - a short italic tag, e.g. "Rainy Morning"
-     dot       - "filled" for the most recent entry's timeline dot,
-                 "empty" for older ones (purely visual, optional)
-     body      - the main paragraph of the entry
-     quote     - (optional) a short pulled-quote line under the body,
-                 leave as "" or delete the field if you don't want one
+   字段说明：
+     date  - 日期，原样显示，例如 "2026年7月26日"
+     mood  - 一个简短的斜体标签，例如 "第一篇"
+     dot   - 最新一篇用 "filled"（实心圆点），较早的用 "empty"（空心圆点），
+             纯装饰用途，可选
+     body  - 日记正文
+     quote - （可选）正文下方的一句摘录/引用，不需要的话留空 "" 或删除这个字段
    ===================================================================== */
 const journalEntries = [
   {
-    date: "October 24, 2024",
-    mood: "Rainy Morning",
+    date: "2026年7月26日",
+    mood: "第一篇",
     dot: "filled",
-    body: "The sound of the city is different when the pavement is wet. It's a rhythmic, shushing sound that makes the world feel smaller, more contained. I found myself staring at the steam rising from my cup for longer than necessary today.",
-    quote: "Sometimes the quietest moments hold the most weight."
-  },
-  {
-    date: "October 21, 2024",
-    mood: "Golden Hour",
-    dot: "empty",
-    body: "The light today was like honey—thick and amber, coating everything in a temporary glow. It reminded me that transition is not just a process, but an art form. We are all becoming something else, every second.",
-    quote: ""
-  },
-  {
-    date: "October 18, 2024",
-    mood: "Unspoken",
-    dot: "empty",
-    body: "I realized today that I haven't written in three days. The absence of words is also a form of record. Some days are for living, not for documenting.",
-    quote: ""
+    body: "这是我第一次做网站。之前写了好多信在纸上，也撕掉了好多——写信总是会把内心的回忆戳得太深。现在，好像连坐下来写信的时间都没有了。已经28天没有完整休息过一天了，不过一切都还好。健身是我保持状态的方式，感觉身材好像也有了些变化。不知道重庆的夏天今年是不是特别热，也不知道她现在怎么样了，还有Freedom和贝果。新西兰现在是最冷的月份，我不喜欢冬天，不喜欢下雨天，不喜欢刮风的日子。但玉兰花已经开了。我想，春天也快到了吧。",
+    quote: "但玉兰花已经开了。我想，春天也快到了吧。"
   }
 ];
 
@@ -619,11 +607,10 @@ function renderJournal(){
     </article>
   `).join('');
 
-  // Update the "Active Streak" stat and progress bar from the entry count
   const streakEl = document.getElementById('journal-streak');
   const bar = document.getElementById('progress-bar');
   if(streakEl){
-    streakEl.innerHTML = journalEntries.length + ' <span class="text-body-md font-body-md text-outline">Entries</span>';
+    streakEl.innerHTML = journalEntries.length + ' <span class="text-body-md font-body-md text-outline">篇</span>';
   }
   if(bar){
     setTimeout(() => { bar.style.width = Math.min(100, journalEntries.length * 8) + '%'; }, 300);
@@ -631,7 +618,7 @@ function renderJournal(){
 }
 
 /* =====================================================================
-   PAGE ROUTING (hash-based, works on GitHub Pages with no server config)
+   页面路由（基于 URL hash，兼容 GitHub Pages 免费静态托管，无需服务器配置）
    ===================================================================== */
 const PAGES = ['prologue', 'our-story', 'life-now', 'journal', 'dear-you'];
 
@@ -655,7 +642,6 @@ function showPage(pageName, updateHash = true){
   if(updateHash) history.pushState(null, '', '#' + pageName);
   window.scrollTo({ top: 0, behavior: 'instant' in window ? 'instant' : 'auto' });
 
-  // close mobile nav after navigating
   const mobileNav = document.getElementById('mobile-nav');
   if(mobileNav) mobileNav.classList.remove('open');
 }
@@ -683,14 +669,13 @@ document.getElementById('mobile-nav-toggle').addEventListener('click', () => {
 });
 
 document.getElementById('new-entry-btn')?.addEventListener('click', () => {
-  alert('To add a new entry: open index.html, find the "JOURNAL ENTRIES" section near the bottom of the file, and add a new entry to the journalEntries list at the top of that array.');
+  alert('新增一篇日记的方法：打开 index.html，在文件底部找到"日记条目 JOURNAL ENTRIES"这部分，在 journalEntries 数组的最前面添加一个新的条目即可。');
 });
 
 document.getElementById('archive-feeling-btn')?.addEventListener('click', () => {
-  alert('This is a placeholder button — it doesn\'t save anything yet. Hook it up to a form service (like Formspree) if you\'d like these submissions to go somewhere.');
+  alert('这是一个占位按钮，目前还不会保存任何内容。如果想让这里的内容真正被保存下来，可以接入像 Formspree 这样的表单服务。');
 });
 
-// Subtle interactivity for underlined inputs
 document.querySelectorAll('input').forEach(input => {
   input.addEventListener('focus', () => {
     input.parentElement.style.transform = 'translateX(8px)';
@@ -701,7 +686,6 @@ document.querySelectorAll('input').forEach(input => {
   });
 });
 
-// Init
 renderJournal();
 showPage(getPageFromHash(), false);
 </script>
