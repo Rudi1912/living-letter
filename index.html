@@ -77,7 +77,7 @@ tailwind.config={theme:{extend:{colors:{"tertiary":"#5b5c5c","outline":"#74777c"
         <p>有些话，说给过去听；有些话，说给现在的自己听。<br/>这里没有终点，只有慢慢写下去的时间。</p>
       </div>
       <div class="mt-16 aspect-[16/9] w-full overflow-hidden rounded-xl shadow-lg">
-        <img alt="温暖的咖啡馆一角" class="w-full h-full object-cover" src="https://images.unsplash.com/photo-1648737962619-16e5cd465d2b?auto=format&fit=crop&w=1400&q=80"/>
+        <img alt="云层中透出的温暖晨光" class="w-full h-full object-cover" src="https://images.unsplash.com/photo-1759513332708-6e0aa2364095?auto=format&fit=crop&w=1400&q=80"/>
       </div>
     </div>
   </section>
@@ -104,7 +104,7 @@ tailwind.config={theme:{extend:{colors:{"tertiary":"#5b5c5c","outline":"#74777c"
         <p>我想要的其实很简单——普通地生活，幸福地，长长久久地一起变老。</p>
       </div>
       <div class="mt-16 aspect-[4/3] w-full overflow-hidden rounded-xl shadow-lg">
-        <img alt="云层中透出的温暖晨光" class="w-full h-full object-cover" src="https://images.unsplash.com/photo-1759513332708-6e0aa2364095?auto=format&fit=crop&w=1400&q=80"/>
+        <img alt="书桌上摊开的笔记本与钢笔，记录着时间流逝" class="w-full h-full object-cover saturate-[0.9] sepia-[0.12]" src="https://images.unsplash.com/photo-1761322572550-967ea8c0bfd9?auto=format&fit=crop&w=1400&q=80"/>
       </div>
     </div>
   </section>
@@ -195,21 +195,14 @@ tailwind.config={theme:{extend:{colors:{"tertiary":"#5b5c5c","outline":"#74777c"
   <section class="max-w-container-max mx-auto px-margin-mobile lg:px-0 w-full pb-section-gap">
     <div class="grid grid-cols-1 md:grid-cols-12 gap-section-gap">
 
-      <!-- 日记条目列表：由下方 <script> 中的 journalEntries 数组自动生成 -->
-      <div class="md:col-span-7 flex flex-col gap-16" id="journal-entry-list">
+      <!-- 日记条目列表：由下方 <script> 中的 journalEntries 数组自动生成，
+           每篇日记都带有各自的配图，位置会自动在左/右/上下之间轮换 -->
+      <div class="md:col-span-8 flex flex-col gap-20" id="journal-entry-list">
         <!-- entries injected here by JS -->
       </div>
 
-      <aside class="md:col-span-5 relative">
+      <aside class="md:col-span-4 relative">
         <div class="sticky top-24 space-y-gutter">
-          <div class="relative group overflow-hidden rounded-xl shadow-xl bg-surface-container-high">
-            <img alt="温暖的咖啡馆一角" class="w-full aspect-square object-cover opacity-90 group-hover:scale-105 transition-transform duration-1000" src="https://images.unsplash.com/photo-1648737962619-16e5cd465d2b?auto=format&fit=crop&w=1000&q=80"/>
-            <div class="absolute inset-0 bg-gradient-to-t from-on-surface/40 via-transparent to-transparent pointer-events-none"></div>
-            <div class="absolute bottom-6 left-6 right-6">
-              <span class="font-label-sm text-label-sm text-white/90 uppercase tracking-widest">Atmosphere</span>
-              <p class="font-headline-md text-white mt-1">避风港</p>
-            </div>
-          </div>
           <div class="p-gutter bg-surface-container-low rounded-xl space-y-4">
             <h3 class="font-headline-md text-headline-md text-primary">记录简况</h3>
             <div class="flex justify-between items-end">
@@ -251,18 +244,27 @@ tailwind.config={theme:{extend:{colors:{"tertiary":"#5b5c5c","outline":"#74777c"
    最前面），然后填入你自己的文字即可。条目会按你在这里排列的顺序显示。
 
    字段说明：
-     date  - 日期，原样显示，例如 "2026年7月29日"
-     mood  - 一个简短的斜体标签，例如 "结霜的早晨"
-     dot   - 最新一篇用 "filled"（实心圆点），较早的用 "empty"（空心圆点），
-             纯装饰用途，可选
-     body  - 日记正文，是一个【段落数组】，数组里每一项会成为单独一段
-     quote - （可选）正文下方的一句摘录/引用，不需要的话留空 "" 或删除这个字段
+     date      - 日期，原样显示，例如 "2026年7月29日"
+     mood      - 一个简短的斜体标签，例如 "结霜的早晨"
+     dot       - 最新一篇用 "filled"（实心圆点），较早的用 "empty"（空心圆点），
+                 纯装饰用途，可选
+     body      - 日记正文，是一个【段落数组】，数组里每一项会成为单独一段
+     quote     - （可选）正文下方的一句摘录/引用，不需要的话留空 "" 或删除这个字段
+     image     - 这篇日记配的图片链接。可以放你自己的照片链接，也可以从
+                 Unsplash（unsplash.com）等免费图库找一张替换
+     imageAlt  - 图片的文字说明（帮助读屏软件，也方便你自己记录这张图是什么）
+     layout    - （可选）图片摆放位置，可选值："image-left"（图左文右）、
+                 "image-right"（图右文左）、"image-top"（图在上、文在下）。
+                 不填的话会按顺序自动轮换，让排版看起来更自然、不呆板
    ===================================================================== */
 const journalEntries = [
   {
     date: "2026年7月29日",
     mood: "结霜的早晨",
     dot: "filled",
+    image: "https://images.unsplash.com/photo-1708471497203-5aee524c1b1c?auto=format&fit=crop&w=1200&q=80",
+    imageAlt: "晨光穿过窗帘洒进屋子",
+    layout: "image-right",
     body: [
       "最近好冷，甚至早上木制的围栏上都已经结霜了。",
       "我不喜欢冷的天气，有两个原因：一是太冷，手脚总是凉的，做事效率很低；二是冬天雨水多，有时候小腿会很痛。真希望暖和的日子快点来，这样做事的效率也能提升不少。",
@@ -276,6 +278,9 @@ const journalEntries = [
     date: "2026年7月26日",
     mood: "第一篇",
     dot: "empty",
+    image: "https://images.unsplash.com/photo-1740593021483-a898ac0d4ab7?auto=format&fit=crop&w=1200&q=80",
+    imageAlt: "一杯冒着热气的咖啡",
+    layout: "image-left",
     body: [
       "这是我第一次做网站。之前写了好多信在纸上，也撕掉了好多——写信总是会把内心的回忆戳得太深。现在，好像连坐下来写信的时间都没有了。",
       "已经28天没有完整休息过一天了，不过一切都还好。健身是我保持状态的方式，感觉身材好像也有了些变化。",
@@ -288,14 +293,15 @@ const journalEntries = [
   }
 ];
 
+const JOURNAL_LAYOUT_CYCLE = ['image-right', 'image-left', 'image-top'];
+
 function renderJournal(){
   const list = document.getElementById('journal-entry-list');
   if(!list) return;
-  list.innerHTML = journalEntries.map(entry => `
-    <article class="group relative">
-      <div class="absolute -left-12 top-0 h-full w-px bg-outline-variant/20 hidden lg:block">
-        <div class="absolute top-2 -left-1 w-2 h-2 rounded-full ${entry.dot === 'filled' ? 'bg-primary' : 'bg-outline-variant'} ring-4 ring-background"></div>
-      </div>
+  list.innerHTML = journalEntries.map((entry, i) => {
+    const layout = entry.layout || JOURNAL_LAYOUT_CYCLE[i % JOURNAL_LAYOUT_CYCLE.length];
+
+    const textBlock = `
       <div class="space-y-4">
         <header class="flex items-center gap-4">
           <time class="font-label-sm text-label-sm text-outline uppercase tracking-tighter">${entry.date}</time>
@@ -306,9 +312,40 @@ function renderJournal(){
           ${entry.body.map(p => `<p class="font-body-lg text-body-lg text-on-surface leading-relaxed">${p}</p>`).join('')}
           ${entry.quote ? `<p class="font-body-md text-body-md text-on-surface-variant italic border-l-2 border-primary/20 pl-4 py-1">${entry.quote}</p>` : ''}
         </div>
+      </div>`;
+
+    const imageBlock = entry.image ? `
+      <div class="w-full overflow-hidden rounded-xl shadow-lg">
+        <img alt="${entry.imageAlt || ''}" class="w-full h-full object-cover" src="${entry.image}"/>
+      </div>` : '';
+
+    let inner;
+    if(!entry.image){
+      inner = textBlock;
+    } else if(layout === 'image-top'){
+      inner = `<div class="space-y-8">${imageBlock}${textBlock}</div>`;
+    } else if(layout === 'image-left'){
+      inner = `
+        <div class="grid grid-cols-1 md:grid-cols-5 gap-gutter items-start">
+          <div class="md:col-span-2">${imageBlock}</div>
+          <div class="md:col-span-3">${textBlock}</div>
+        </div>`;
+    } else {
+      inner = `
+        <div class="grid grid-cols-1 md:grid-cols-5 gap-gutter items-start">
+          <div class="md:col-span-3 order-2 md:order-1">${textBlock}</div>
+          <div class="md:col-span-2 order-1 md:order-2">${imageBlock}</div>
+        </div>`;
+    }
+
+    return `
+    <article class="group relative">
+      <div class="absolute -left-12 top-0 h-full w-px bg-outline-variant/20 hidden lg:block">
+        <div class="absolute top-2 -left-1 w-2 h-2 rounded-full ${entry.dot === 'filled' ? 'bg-primary' : 'bg-outline-variant'} ring-4 ring-background"></div>
       </div>
-    </article>
-  `).join('');
+      ${inner}
+    </article>`;
+  }).join('');
 
   const streakEl = document.getElementById('journal-streak');
   const bar = document.getElementById('progress-bar');
